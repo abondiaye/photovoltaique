@@ -1,0 +1,9 @@
+// ============================
+// Fonctions personnalisées
+// ============================
+
+// Exemple : calcul de rem à partir de px
+@function rem($px) {
+    @return ($px / 16) * 1rem;
+  }
+  

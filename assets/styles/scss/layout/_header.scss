@@ -1,0 +1,16 @@
+// ============================
+// Header principal
+// ============================
+
+header {
+    background-color: $color-dark;
+    color: $color-white;
+    padding: $spacer;
+  
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  

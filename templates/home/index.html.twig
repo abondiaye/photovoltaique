@@ -1,889 +1,128 @@
-{% extends 'base.html.twig' %}
-{% block title %}Accueil — Photovoltaique{% endblock %}
-{% block stylesheets %}
-  {{ parent() }}
-  <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/animated-button.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/animated-text.css') }}">
-  /* From Uiverse.io by reglobby */ 
-.toggle-container {
-  position: relative;
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  perspective: 800px;
-  z-index: 5;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photovoltaïque</title>
+  <link rel="stylesheet" href="style.spwd
+ls
+css" />
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <button class="btn active">
+        <span class="icon">🧠</span>
+        <span>Entretien intelligent</span>
+      </button>
+      <button class="btn"><span class="icon">🧹</span> Nettoyage</button>
+      <button class="btn"><span class="icon">🛡️</span> Protection</button>
+      <button class="btn"><span class="icon">⚡</span> Performances</button>
+      <button class="btn"><span class="icon">📱</span> Applications</button>
+      <button class="btn"><span class="icon">🗑️</span> Mes fichiers inutiles</button>
+      <button class="btn"><span class="icon">🔍</span> Télescope</button>
+      <button class="btn"><span class="icon">☁️</span> Nettoyage cloud</button>
+      <button class="btn"><span class="icon">🤖</span> Assistant</button>
+    </nav>
 
-.toggle-wrap {
-  position: relative;
-  width: 100%;
-  height: 60px;
-  transform-style: preserve-3d;
-}
-
-.toggle-input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-track {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 30, 60, 0.4);
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow:
-    0 0 15px rgba(0, 80, 255, 0.2),
-    inset 0 0 10px rgba(0, 0, 0, 0.8);
-  overflow: hidden;
-  backdrop-filter: blur(5px);
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  border: 1px solid rgba(0, 150, 255, 0.3);
-}
-
-.toggle-track::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-      ellipse at center,
-      rgba(0, 80, 255, 0.1) 0%,
-      rgba(0, 0, 0, 0) 70%
-    ),
-    linear-gradient(90deg, rgba(0, 60, 120, 0.1) 0%, rgba(0, 30, 60, 0.2) 100%);
-  opacity: 0.6;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.toggle-track::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  right: 2px;
-  height: 10px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 170, 255, 0.3) 0%,
-    rgba(0, 80, 255, 0.1) 100%
-  );
-  border-radius: 30px 30px 0 0;
-  opacity: 0.7;
-  filter: blur(1px);
-}
-
-.track-lines {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  transform: translateY(-50%);
-  overflow: hidden;
-}
-
-.track-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(0, 150, 255, 0.3) 0px,
-    rgba(0, 150, 255, 0.3) 5px,
-    transparent 5px,
-    transparent 15px
-  );
-  animation: track-line-move 3s linear infinite;
-}
-
-@keyframes track-line-move {
-  0% {
-    transform: translateX(0);
+    <main class="main-content">
+      <img src="your-logo-or-image.png" alt="Logo" class="main-image" />
+      <h1>Heureux de vous revoir !</h1>
+      <p>Pour commencer, lancez une analyse rapide et complète de votre système.</p>
+      <button class="main-button">Analyser</button>
+    </main>
+  </div>
+</body>
+</html>
+<styles>
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #3a0564 0%, #6b27b9 100%);
+    color: white;
   }
-  100% {
-    transform: translateX(20px);
+  
+  .container {
+    display: flex;
+    height: 100vh;
   }
-}
-
-.toggle-thumb {
-  position: absolute;
-  width: 54px;
-  height: 54px;
-  left: 3px;
-  top: 3px;
-  background: radial-gradient(
-    circle,
-    rgba(10, 40, 90, 0.9) 0%,
-    rgba(0, 20, 50, 0.8) 100%
-  );
-  border-radius: 50%;
-  box-shadow:
-    0 2px 15px rgba(0, 0, 0, 0.5),
-    inset 0 0 15px rgba(0, 150, 255, 0.5);
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  z-index: 2;
-  border: 1px solid rgba(0, 170, 255, 0.6);
-  overflow: hidden;
-  transform-style: preserve-3d;
-}
-
-.thumb-core {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(0, 180, 255, 0.6) 0%,
-    rgba(0, 50, 120, 0.2) 100%
-  );
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 150, 255, 0.5);
-  opacity: 0.9;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.thumb-inner {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(100, 200, 255, 0.5) 100%
-  );
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(100, 200, 255, 0.7);
-  opacity: 0.7;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  animation: pulse 2s infinite alternate;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 0.5;
-    transform: translate(-50%, -50%) scale(0.9);
+  
+  .sidebar {
+    width: 220px;
+    background-color: #240441;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px;
+    gap: 20px;
   }
-  100% {
-    opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1.1);
+  
+  .btn {
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: left;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-weight: 500;
+  
+    &:hover,
+    &.active {
+      background: #5f1ab6;
+      box-shadow: 0 0 15px #b772f3;
+    }
   }
-}
-
-.thumb-scan {
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 150, 255, 0.5) 20%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(0, 150, 255, 0.5) 80%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  top: 0;
-  left: 0;
-  filter: blur(1px);
-  animation: thumb-scan 2s linear infinite;
-  opacity: 0.7;
-}
-
-@keyframes thumb-scan {
-  0% {
-    top: -5px;
-    opacity: 0;
+  
+  .main-content {
+    flex: 1;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  20% {
-    opacity: 0.7;
+  
+  .main-image {
+    width: 180px;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 10px #b772f3);
   }
-  80% {
-    opacity: 0.7;
+  
+  h1 {
+    font-weight: 600;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
   }
-  100% {
-    top: 54px;
-    opacity: 0;
+  
+  p {
+    font-weight: 400;
+    font-size: 1.1rem;
+    opacity: 0.75;
+    margin-bottom: 40px;
   }
-}
-
-.thumb-particles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-
-.thumb-particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: rgba(100, 200, 255, 0.8);
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(100, 200, 255, 0.8);
-  animation: thumb-particle-float 3s infinite ease-out;
-  opacity: 0;
-}
-
-.thumb-particle:nth-child(1) {
-  top: 70%;
-  left: 30%;
-  animation-delay: 0.2s;
-}
-
-.thumb-particle:nth-child(2) {
-  top: 60%;
-  left: 60%;
-  animation-delay: 0.6s;
-}
-
-.thumb-particle:nth-child(3) {
-  top: 50%;
-  left: 40%;
-  animation-delay: 1s;
-}
-
-.thumb-particle:nth-child(4) {
-  top: 40%;
-  left: 70%;
-  animation-delay: 1.4s;
-}
-
-.thumb-particle:nth-child(5) {
-  top: 80%;
-  left: 50%;
-  animation-delay: 1.8s;
-}
-
-@keyframes thumb-particle-float {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
+  
+  .main-button {
+    background: #8f2eff;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding: 20px 40px;
+    border-radius: 50%;
+    width: 140px;
+    height: 140px;
+    box-shadow: 0 0 20px #b772f3;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  
+    &:hover {
+      box-shadow: 0 0 40px #d199ff;
+    }
   }
-  20% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-30px) scale(0);
-    opacity: 0;
-  }
-}
-
-.toggle-data {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.data-text {
-  position: absolute;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all 0.5s ease;
-}
-
-.data-text.off {
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 1;
-  color: rgba(0, 150, 255, 0.6);
-  text-shadow: 0 0 5px rgba(0, 100, 255, 0.4);
-}
-
-.data-text.on {
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  color: rgba(0, 255, 150, 0.6);
-  text-shadow: 0 0 5px rgba(0, 255, 100, 0.4);
-}
-
-.status-indicator {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(0, 180, 255, 0.8) 0%,
-    rgba(0, 80, 200, 0.4) 100%
-  );
-  box-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
-  animation: blink 2s infinite alternate;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.status-indicator.off {
-  top: 25px;
-  right: 15px;
-}
-
-.status-indicator.on {
-  top: 25px;
-  left: 15px;
-  opacity: 0;
-  background: radial-gradient(
-    circle,
-    rgba(0, 255, 150, 0.8) 0%,
-    rgba(0, 200, 80, 0.4) 100%
-  );
-  box-shadow: 0 0 10px rgba(0, 255, 150, 0.5);
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(0.9);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-}
-
-.energy-rings {
-  position: absolute;
-  width: 54px;
-  height: 54px;
-  left: 3px;
-  top: 3px;
-  pointer-events: none;
-  z-index: 1;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.energy-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 2px solid transparent;
-  opacity: 0;
-}
-
-.energy-ring:nth-child(1) {
-  width: 50px;
-  height: 50px;
-  border-top-color: rgba(0, 150, 255, 0.5);
-  border-right-color: rgba(0, 150, 255, 0.3);
-  animation: spin 3s linear infinite;
-}
-
-.energy-ring:nth-child(2) {
-  width: 40px;
-  height: 40px;
-  border-bottom-color: rgba(0, 150, 255, 0.5);
-  border-left-color: rgba(0, 150, 255, 0.3);
-  animation: spin 2s linear infinite reverse;
-}
-
-.energy-ring:nth-child(3) {
-  width: 30px;
-  height: 30px;
-  border-left-color: rgba(0, 150, 255, 0.5);
-  border-top-color: rgba(0, 150, 255, 0.3);
-  animation: spin 1.5s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-.interface-lines {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.interface-line {
-  position: absolute;
-  background: rgba(0, 150, 255, 0.3);
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.interface-line:nth-child(1) {
-  width: 15px;
-  height: 1px;
-  bottom: -5px;
-  left: 20px;
-}
-
-.interface-line:nth-child(2) {
-  width: 1px;
-  height: 8px;
-  bottom: -12px;
-  left: 35px;
-}
-
-.interface-line:nth-child(3) {
-  width: 25px;
-  height: 1px;
-  bottom: -12px;
-  left: 35px;
-}
-
-.interface-line:nth-child(4) {
-  width: 15px;
-  height: 1px;
-  bottom: -5px;
-  right: 20px;
-}
-
-.interface-line:nth-child(5) {
-  width: 1px;
-  height: 8px;
-  bottom: -12px;
-  right: 35px;
-}
-
-.interface-line:nth-child(6) {
-  width: 25px;
-  height: 1px;
-  bottom: -12px;
-  right: 10px;
-}
-
-.toggle-reflection {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0) 40%
-  );
-  border-radius: 30px;
-  pointer-events: none;
-}
-
-.toggle-label {
-  position: relative;
-  margin-top: 20px;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-align: center;
-  color: rgba(0, 150, 255, 0.7);
-  text-shadow: 0 0 10px rgba(0, 100, 255, 0.5);
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.holo-glow {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 30px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 150, 255, 0.2) 0%,
-    rgba(0, 0, 0, 0) 70%
-  );
-  filter: blur(10px);
-  opacity: 0.5;
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  z-index: 0;
-}
-
-.toggle-input:checked + .toggle-track {
-  background: rgba(0, 60, 30, 0.4);
-  border-color: rgba(0, 255, 150, 0.3);
-  box-shadow:
-    0 0 15px rgba(0, 255, 150, 0.2),
-    inset 0 0 10px rgba(0, 0, 0, 0.8);
-}
-
-.toggle-input:checked + .toggle-track::before {
-  background: radial-gradient(
-      ellipse at center,
-      rgba(0, 255, 150, 0.1) 0%,
-      rgba(0, 0, 0, 0) 70%
-    ),
-    linear-gradient(90deg, rgba(0, 120, 60, 0.1) 0%, rgba(0, 60, 30, 0.2) 100%);
-}
-
-.toggle-input:checked + .toggle-track::after {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 255, 150, 0.3) 0%,
-    rgba(0, 160, 80, 0.1) 100%
-  );
-}
-
-.toggle-input:checked + .toggle-track .track-line {
-  background: repeating-linear-gradient(
-    90deg,
-    rgba(0, 255, 150, 0.3) 0px,
-    rgba(0, 255, 150, 0.3) 5px,
-    transparent 5px,
-    transparent 15px
-  );
-  animation-direction: reverse;
-}
-
-.toggle-input:checked + .toggle-track .toggle-thumb {
-  left: calc(100% - 57px);
-  background: radial-gradient(
-    circle,
-    rgba(10, 90, 40, 0.9) 0%,
-    rgba(0, 50, 20, 0.8) 100%
-  );
-  border-color: rgba(0, 255, 150, 0.6);
-  box-shadow:
-    0 2px 15px rgba(0, 0, 0, 0.5),
-    inset 0 0 15px rgba(0, 255, 150, 0.5);
-}
-
-.toggle-input:checked + .toggle-track .thumb-core {
-  background: radial-gradient(
-    circle,
-    rgba(0, 255, 150, 0.6) 0%,
-    rgba(0, 120, 50, 0.2) 100%
-  );
-  box-shadow: 0 0 20px rgba(0, 255, 150, 0.5);
-}
-
-.toggle-input:checked + .toggle-track .thumb-inner {
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(100, 255, 200, 0.5) 100%
-  );
-  box-shadow: 0 0 10px rgba(100, 255, 200, 0.7);
-}
-
-.toggle-input:checked + .toggle-track .thumb-scan {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 255, 150, 0.5) 20%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(0, 255, 150, 0.5) 80%,
-    rgba(0, 0, 0, 0) 100%
-  );
-}
-
-.toggle-input:checked + .toggle-track .thumb-particle {
-  background: rgba(100, 255, 200, 0.8);
-  box-shadow: 0 0 5px rgba(100, 255, 200, 0.8);
-}
-
-.toggle-input:checked + .toggle-track .data-text.off {
-  opacity: 0;
-}
-
-.toggle-input:checked + .toggle-track .data-text.on {
-  opacity: 1;
-}
-
-.toggle-input:checked + .toggle-track .status-indicator.off {
-  opacity: 0;
-}
-
-.toggle-input:checked + .toggle-track .status-indicator.on {
-  opacity: 1;
-}
-
-.toggle-input:checked + .toggle-track .energy-rings {
-  left: calc(100% - 57px);
-}
-
-.toggle-input:checked + .toggle-track .energy-ring {
-  opacity: 1;
-}
-
-.toggle-input:checked + .toggle-track .energy-ring:nth-child(1) {
-  border-top-color: rgba(0, 255, 150, 0.5);
-  border-right-color: rgba(0, 255, 150, 0.3);
-}
-
-.toggle-input:checked + .toggle-track .energy-ring:nth-child(2) {
-  border-bottom-color: rgba(0, 255, 150, 0.5);
-  border-left-color: rgba(0, 255, 150, 0.3);
-}
-
-.toggle-input:checked + .toggle-track .energy-ring:nth-child(3) {
-  border-left-color: rgba(0, 255, 150, 0.5);
-  border-top-color: rgba(0, 255, 150, 0.3);
-}
-
-.toggle-input:checked + .toggle-track .interface-line {
-  background: rgba(0, 255, 150, 0.3);
-}
-
-.toggle-input:checked ~ .toggle-label {
-  color: rgba(0, 255, 150, 0.7);
-  text-shadow: 0 0 10px rgba(0, 255, 150, 0.5);
-}
-
-.toggle-input:checked + .toggle-track .holo-glow {
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 255, 150, 0.2) 0%,
-    rgba(0, 0, 0, 0) 70%
-  );
-}
-
-.toggle-input:hover + .toggle-track {
-  box-shadow:
-    0 0 20px rgba(0, 150, 255, 0.3),
-    inset 0 0 10px rgba(0, 0, 0, 0.8);
-}
-
-.toggle-input:checked:hover + .toggle-track {
-  box-shadow:
-    0 0 20px rgba(0, 255, 150, 0.3),
-    inset 0 0 10px rgba(0, 0, 0, 0.8);
-}
-
-{% endblock %}
-
-{% block javascripts %}
-  {{ parent() }}
-  <script src="{{ asset('js/calendar.js') }}"></script>
-{% endblock %}
-
-{% block body %}
-  <section class="hero">
-    <div>
-      <h1 class="h-title">Net, rapide et puissant — design soigné pour votre énergie ☀️</h1>
-      <p class="h-sub">Estimations instantanées, devis transparents et un tableau de bord élégant pour suivre votre production solaire.</p>
-
-      <div class="cta">
-        <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
-        <a class="btn" href="#realisations">Voir les réalisations</a>
-
-        {# Bouton animé — styles déjà dans base.html.twig si tu as collé ma version précédente #}
-        <a href="#devis" style="text-decoration:none">
-          <button class="button" aria-label="Aller au formulaire de devis">
-            <div class="bg"></div>
-
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 342 208" height="208" width="342" class="splash">
-              <path stroke-linecap="round" stroke-width="3" d="M54.1054 99.7837C54.1054 99.7837 40.0984 90.7874 26.6893 97.6362C13.2802 104.485 1.5 97.6362 1.5 97.6362"></path>
-              <path stroke-linecap="round" stroke-width="3" d="M285.273 99.7841C285.273 99.7841 299.28 90.7879 312.689 97.6367C326.098 104.486 340.105 95.4893 340.105 95.4893"></path>
-              <path stroke-linecap="round" stroke-width="3" stroke-opacity="0.3" d="M281.133 64.9917C281.133 64.9917 287.96 49.8089 302.934 48.2295C317.908 46.6501 319.712 36.5272 319.712 36.5272"></path>
-              <path stroke-linecap="round" stroke-width="3" stroke-opacity="0.3" d="M281.133 138.984C281.133 138.984 287.96 154.167 302.934 155.746C317.908 157.326 319.712 167.449 319.712 167.449"></path>
-              <path stroke-linecap="round" stroke-width="3" d="M230.578 57.4476C230.578 57.4476 225.785 41.5051 236.061 30.4998C246.337 19.4945 244.686 12.9998 244.686 12.9998"></path>
-              <path stroke-linecap="round" stroke-width="3" d="M230.578 150.528C230.578 150.528 225.785 166.471 236.061 177.476C246.337 188.481 244.686 194.976 244.686 194.976"></path>
-              <path stroke-linecap="round" stroke-width="3" stroke-opacity="0.3" d="M170.392 57.0278C170.392 57.0278 173.89 42.1322 169.571 29.54C165.252 16.9478 168.751 2.05227 168.751 2.05227"></path>
-              <path stroke-linecap="round" stroke-width="3" stroke-opacity="0.3" d="M170.392 150.948C170.392 150.948 173.89 165.844 169.571 178.436C165.252 191.028 168.751 205.924 168.751 205.924"></path>
-              <path stroke-linecap="round" stroke-width="3" d="M112.609 57.4476C112.609 57.4476 117.401 41.5051 107.125 30.4998C96.8492 19.4945 98.5 12.9998 98.5 12.9998"></path>
-              <path stroke-linecap="round" stroke-width="3" d="M112.609 150.528C112.609 150.528 117.401 166.471 107.125 177.476C96.8492 188.481 98.5 194.976 98.5 194.976"></path>
-              <path stroke-linecap="round" stroke-width="3" stroke-opacity="0.3" d="M62.2941 64.9917C62.2941 64.9917 55.4671 49.8089 40.4932 48.2295C25.5194 46.6501 23.7159 36.5272 23.7159 36.5272"></path>
-              <path stroke-linecap="round" stroke-width="3" stroke-opacity="0.3" d="M62.2941 145.984C62.2941 145.984 55.4671 161.167 40.4932 162.746C25.5194 164.326 23.7159 174.449 23.7159 174.449"></path>
-            </svg>
-
-            <div class="wrap">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 221 42" height="42" width="221" class="path">
-                <path stroke-linecap="round" stroke-width="3" d="M182.674 2H203C211.837 2 219 9.16344 219 18V24C219 32.8366 211.837 40 203 40H18C9.16345 40 2 32.8366 2 24V18C2 9.16344 9.16344 2 18 2H47.8855"></path>
-              </svg>
-              <div class="outline"></div>
-              <div class="toggle-thumb">
-                <div class="thumb-core"></div>
-                <div class="thumb-inner"></div>
-                <div class="thumb-scan"></div>
-                <div class="thumb-particles">
-                  <div class="thumb-particle"></div>
-                  <div class="thumb-particle"></div>
-                  <div class="thumb-particle"></div>
-                  <div class="thumb-particle"></div>
-                  <div class="thumb-particle"></div>
-                </div>
-              </div>
-        
-              <div class="toggle-data">
-                <div class="data-text off">OFF</div>
-                <div class="data-text on">ON</div>
-                <div class="status-indicator off"></div>
-                <div class="status-indicator on"></div>
-              </div>
-        
-              <div class="energy-rings">
-                <div class="energy-ring"></div>
-                <div class="energy-ring"></div>
-                <div class="energy-ring"></div>
-              </div>
-        
-              <div class="interface-lines">
-                <div class="interface-line"></div>
-                <div class="interface-line"></div>
-                <div class="interface-line"></div>
-                <div class="interface-line"></div>
-                <div class="interface-line"></div>
-                <div class="interface-line"></div>
-              </div>
-        
-              <div class="toggle-reflection"></div>
-              <div class="holo-glow"></div>
-            </label>
-          </div>
-        </div>
-
-              {# Texte animé FR #}
-              <div class="content">
-                {# État 1 : "DEVIS   RAPIDE" (espaces pour l’alignement) #}
-                <span class="char state-1">
-                  <span data-label="D" style="--i:1">D</span>
-                  <span data-label="E" style="--i:2">E</span>
-                  <span data-label="V" style="--i:3">V</span>
-                  <span data-label="I" style="--i:4">I</span>
-                  <span data-label="S" style="--i:5">S</span>
-                  <span data-label=" " style="--i:6"> </span>
-                  <span data-label=" " style="--i:7"> </span>
-                  <span data-label="R" style="--i:8">R</span>
-                  <span data-label="A" style="--i:9">A</span>
-                  <span data-label="P" style="--i:10">P</span>
-                  <span data-label="I" style="--i:11">I</span>
-                  <span data-label="D" style="--i:12">D</span>
-                  <span data-label="E" style="--i:13">E</span>
-                </span>
-
-                <div class="icon"><div></div></div>
-
-                {# État 2 : "COMMENCER" #}
-                <span class="char state-2">
-                  <span data-label="C" style="--i:1">C</span>
-                  <span data-label="O" style="--i:2">O</span>
-                  <span data-label="M" style="--i:3">M</span>
-                  <span data-label="M" style="--i:4">M</span>
-                  <span data-label="E" style="--i:5">E</span>
-                  <span data-label="N" style="--i:6">N</span>
-                  <span data-label="C" style="--i:7">C</span>
-                  <span data-label="E" style="--i:8">E</span>
-                  <span data-label="R" style="--i:9">R</span>
-                </span>
-              </div>
-            </div>
-          </button>
-        </a>
-      </div>
-    </div>
-
-    <div class="glass" style="height:360px; border-radius:28px; display:flex; align-items:center; justify-content:center;">
-      <div style="text-align:center;">
-        <div style="font-size:92px; line-height:1">🔋</div>
-        <div style="opacity:.8">Widget de production en temps réel</div>
-      </div>
-    </div>
-  </section>
-
-  {# ==== Calendrier du mois complet ==== #}
-  <section class="dash">
-    <div class="card xl glass" style="grid-column:span 12;">
-      <div id="calWrap">
-        <h3 id="monthYear" style="text-align:center; margin:0 0 12px;"></h3>
-        <table id="calendarTable" style="width:100%; border-collapse:collapse; text-align:center;">
-          <thead>
-            <tr>
-              <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Lu</th>
-              <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Ma</th>
-              <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Me</th>
-              <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Je</th>
-              <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Ve</th>
-              <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Sa</th>
-              <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Di</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <style>
-        #calendarTable td{
-          padding: 10px;
-          border: 1px solid rgba(255,255,255,.08);
-          transition: background .25s;
-        }
-        #calendarTable td:hover{ background: rgba(142,38,226,.35); cursor:pointer; }
-        #calendarTable td.today{
-          background: rgba(244,177,253,.9);
-          color: #222;
-          font-weight: 800;
-        }
-        #monthYear{ font-size:20px; opacity:.9 }
-      </style>
-      <script>
-        (function(){
-          const today = new Date();
-          const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
-          document.getElementById('monthYear').textContent = monthNames[today.getMonth()] + " " + today.getFullYear();
-
-          // JS: Sunday=0..Saturday=6 -> on veut Monday=0..Sunday=6
-          const jsFirst = new Date(today.getFullYear(), today.getMonth(), 1).getDay(); // 0..6
-          const firstDayIndex = (jsFirst + 6) % 7; // transforme pour Lundi=0
-          const lastDate = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
-
-          const tbody = document.querySelector('#calendarTable tbody');
-          tbody.innerHTML = '';
-          let date = 1;
-
-          for(let i=0; i<6; i++){
-            const tr = document.createElement('tr');
-            for(let j=0; j<7; j++){
-              const td = document.createElement('td');
-              if(i === 0 && j < firstDayIndex){
-                td.textContent = '';
-              } else if (date > lastDate){
-                td.textContent = '';
-              } else {
-                td.textContent = date;
-                if(date === today.getDate()) td.classList.add('today');
-                date++;
-              }
-              tr.appendChild(td);
-            }
-            tbody.appendChild(tr);
-            if(date > lastDate) break;
-          }
-        })();
-      </script>
-    </div>
-  </section>
-
-  {# ==== Formulaire devis existant ==== #}
-  <section class="dash" id="devis">
-    <div class="card xl glass">
-      <h3>Demande de devis</h3>
-      <form method="post" action="{{ path('lead_new') }}" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-        <input class="btn" name="fullName" placeholder="Nom complet" required>
-        <input class="btn" name="email" type="email" placeholder="Email" required>
-        <input class="btn" name="phone" placeholder="Téléphone">
-        <input class="btn" name="roofAreaM2" type="number" step="0.1" placeholder="Surface de toit (m²)">
-        <select class="btn" name="hasShadow">
-          <option value="0">Peu d'ombrage</option>
-          <option value="1">Beaucoup d'ombrage</option>
-        </select>
-        <button class="btn btn-primary" style="grid-column:span 2">Envoyer</button>
-      </form>
-    </div>
-  </section>
-{% endblock %}
+</styles>

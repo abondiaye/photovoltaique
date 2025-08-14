@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panneau{% endblock %}
+
+{% block body %}
+    <h1>Panneau</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ panneau.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ panneau.nom }}</td>
+            </tr>
+            <tr>
+                <th>Panneau</th>
+                <td>{{ panneau.Panneau }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_panneau_index') }}">back to list</a>
+
+    <a href="{{ path('app_panneau_edit', {'id': panneau.id}) }}">edit</a>
+
+    {{ include('panneau/_delete_form.html.twig') }}
+{% endblock %}

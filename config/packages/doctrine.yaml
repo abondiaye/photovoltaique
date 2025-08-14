@@ -1,7 +1,15 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        driver: 'pdo_mysql'
+        server_version: '11.7.2' # ou la version exacte de ta MariaDB
+        charset: utf8mb4
+        mapping_types:
+            datetime_immutable: datetime
+            date_immutable: date
+            time_immutable: time
 
+        
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '16'

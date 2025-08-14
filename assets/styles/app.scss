@@ -1,4 +1,30 @@
-body {
-    background: black;
-    color: gold;
-}
+// Abstracts
+@import './scss/abstracts/variables';
+@import './scss/abstracts/functions';
+@import './scss/abstracts/mixins';
+
+
+// Vendors
+@import './scss/vendors/bootstrap';
+
+// Base
+@import './scss/base/reset';
+@import './scss/base/typography';
+@import './scss/pages/home';
+@import './scss/themes/default';
+@import './scss/pages/panneau';
+
+
+// Layout
+@import './scss/layout/header';
+@import './scss/layout/footer';
+@import './scss/layout/grid';
+
+// Components
+@import './scss/components/button';
+
+// Pages
+@import './scss/pages/home';
+
+// Themes
+@import './scss/themes/default';

@@ -1,6 +1,14 @@
-import { Application } from '@hotwired/stimulus';
-const application = Application.start();
+// assets/app.js
 
-// import de tes contrôleurs Stimulus ici
-// import ExampleController from './controllers/example_controller';
-// application.register('example', ExampleController);
+// Import de ton style principal (optionnel)
+import './styles/app.scss';
+
+
+// Ton code JS
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Mon app JS est bien chargée !');
+    
+    const titre = document.createElement('h1');
+    titre.textContent = 'Bienvenue sur mon site photovoltaïque ☀️';
+    document.body.appendChild(titre);
+});

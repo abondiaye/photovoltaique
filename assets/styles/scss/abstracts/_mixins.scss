@@ -1,0 +1,40 @@
+// ============================
+// Mixins réutilisables
+// ============================
+
+// Centrage flex
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Texte en ellipsis
+  @mixin text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  // ============================
+// Media Queries responsives
+// ============================
+
+$breakpoints: (
+  "xs": 480px,
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px
+);
+
+@mixin respond-to($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @if $value {
+    @media (max-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` non défini.";
+  }
+}

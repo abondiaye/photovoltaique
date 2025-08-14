@@ -1,0 +1,21 @@
+// ============================
+// Grille de mise en page simple
+// ============================
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 $spacer;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -$spacer;
+  }
+  
+  .col {
+    flex: 1;
+    padding: 0 $spacer;
+  }
+  

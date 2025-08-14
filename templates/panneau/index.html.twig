@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panneau index{% endblock %}
+
+{% block body %}
+    <h1>Panneau index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Panneau</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for panneau in panneaus %}
+            <tr>
+                <td>{{ panneau.id }}</td>
+                <td>{{ panneau.nom }}</td>
+                <td>{{ panneau.Panneau }}</td>
+                <td>
+                    <a href="{{ path('app_panneau_show', {'id': panneau.id}) }}">show</a>
+                    <a href="{{ path('app_panneau_edit', {'id': panneau.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_panneau_new') }}">Create new</a>
+{% endblock %}
