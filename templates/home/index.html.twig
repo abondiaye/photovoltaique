@@ -1,128 +1,63 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Photovoltaïque</title>
-  <link rel="stylesheet" href="style.spwd
-ls
-css" />
-</head>
-<body>
-  <div class="container">
-    <nav class="sidebar">
-      <button class="btn active">
-        <span class="icon">🧠</span>
-        <span>Entretien intelligent</span>
-      </button>
-      <button class="btn"><span class="icon">🧹</span> Nettoyage</button>
-      <button class="btn"><span class="icon">🛡️</span> Protection</button>
-      <button class="btn"><span class="icon">⚡</span> Performances</button>
-      <button class="btn"><span class="icon">📱</span> Applications</button>
-      <button class="btn"><span class="icon">🗑️</span> Mes fichiers inutiles</button>
-      <button class="btn"><span class="icon">🔍</span> Télescope</button>
-      <button class="btn"><span class="icon">☁️</span> Nettoyage cloud</button>
-      <button class="btn"><span class="icon">🤖</span> Assistant</button>
-    </nav>
+{% extends 'base.html.twig' %}
 
-    <main class="main-content">
-      <img src="your-logo-or-image.png" alt="Logo" class="main-image" />
-      <h1>Heureux de vous revoir !</h1>
-      <p>Pour commencer, lancez une analyse rapide et complète de votre système.</p>
-      <button class="main-button">Analyser</button>
-    </main>
+{% block title %}Solar Sirius{% endblock %}
+
+{% block body %}
+<div class="layout">
+    <!-- Navbar gauche -->
+    <div class="nav-2" id="nav-2">
+        <div class="nav-item-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-house-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+          </svg>
+          <div class="nav-text">
+            Home
+          </div>
+        </div>
+        <div class="nav-item-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+          </svg>
+          <div class="nav-text">
+            Chats
+          </div>
+        </div>
+        <div class="nav-item-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-calendar-week" viewBox="0 0 16 16">
+            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+          </svg>
+          <div class="nav-text">
+            Calander
+          </div>
+        </div>
+        <div class="nav-item-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-sliders" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z" />
+          </svg>
+          <div class="nav-text">
+            Settings
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</body>
-</html>
-<styles>
-  body, html {
-    margin: 0; padding: 0; height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(180deg, #3a0564 0%, #6b27b9 100%);
-    color: white;
-  }
-  
-  .container {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .sidebar {
-    width: 220px;
-    background-color: #240441;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 10px;
-    gap: 20px;
-  }
-  
-  .btn {
-    background: transparent;
-    border: none;
-    color: white;
-    text-align: left;
-    font-size: 16px;
-    padding: 10px 15px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: background 0.3s;
-    font-weight: 500;
-  
-    &:hover,
-    &.active {
-      background: #5f1ab6;
-      box-shadow: 0 0 15px #b772f3;
-    }
-  }
-  
-  .main-content {
-    flex: 1;
-    padding: 40px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .main-image {
-    width: 180px;
-    margin-bottom: 30px;
-    filter: drop-shadow(0 0 10px #b772f3);
-  }
-  
-  h1 {
-    font-weight: 600;
-    font-size: 2.8rem;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    font-weight: 400;
-    font-size: 1.1rem;
-    opacity: 0.75;
-    margin-bottom: 40px;
-  }
-  
-  .main-button {
-    background: #8f2eff;
-    border: none;
-    color: white;
-    font-weight: 600;
-    font-size: 1.3rem;
-    padding: 20px 40px;
-    border-radius: 50%;
-    width: 140px;
-    height: 140px;
-    box-shadow: 0 0 20px #b772f3;
-    cursor: pointer;
-    transition: box-shadow 0.3s ease;
-  
-    &:hover {
-      box-shadow: 0 0 40px #d199ff;
-    }
-  }
-</styles>
+  </div>
+
+    <!-- Contenu principal -->
+    <main class="content">
+        <h1>Solar Sirius</h1>
+        <p>
+            Nettoyage &amp; entretien de panneaux, remplacement de panneaux, 
+            onduleurs et entretien de toits végétalisés.
+        </p>
+
+        <!-- QR Code -->
+        <div class="qrcode">
+            <img src="{{ asset('images/qrcode.png') }}" alt="QR Code vers notre site">
+        </div>
+    </main>
+</div>
+{% endblock %}

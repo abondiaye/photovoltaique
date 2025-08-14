@@ -2,10 +2,46 @@
 // Styles de la page d'accueil
 // ============================
 
-.home-hero {
-    background-color: $color-primary;
-    color: $color-white;
-    padding: 3rem;
-    text-align: center;
-  }
-  
+.nav-2 {
+  border-radius: 10px;
+  background-color: rgba(230, 255, 255, 0.7);
+  text-align: center;
+  white-space: nowrap;
+  width: 6rem;
+  height: 25rem;
+  overflow: hidden;
+  transition: all 1s ease;
+}
+
+.nav-item-2:hover {
+  filter: brightness(120%);
+  transform: scale(1.1);
+}
+
+.nav-item-2 {
+  transition: all 0.2s;
+  cursor: pointer;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  font-size: 18px;
+}
+
+.nav-item:hover {
+  filter: brightness(120%);
+  transform: scale(1.1);
+}
+
+.nav-item {
+  display: inline-block;
+  transition: all 0.2s;
+  cursor: pointer;
+  width: 7rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 18px;
+}
+
+.nav-text {
+  color: #009999;
+  font-size: 14px;
+}
