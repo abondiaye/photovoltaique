@@ -124,22 +124,38 @@
         <tbody></tbody>
       </table>
 
-      {# Formulaire affiché après clic sur une date #}
-      <form id="maintenanceForm" method="post" action="{{ path('maintenance_new') }}" style="display:none; margin-top:12px;">
-        <input type="hidden" name="date" id="mf_date">
-        <input class="btn" name="fullName" placeholder="Nom complet" required>
-        <input class="btn" name="email" type="email" placeholder="Email" required>
-        <input class="btn" name="phone" placeholder="Téléphone">
-        <select class="btn" name="type">
-          <option value="cleaning">Nettoyage</option>
-          <option value="inspection">Inspection</option>
-          <option value="repair">Dépannage</option>
-        </select>
-        <textarea class="btn" name="message" placeholder="Détails…"></textarea>
-        <button class="btn btn-primary">Demander cette date</button>
-      </form>
-    </div>
-  </section>
+ {# Formulaire affiché après clic sur une date #}
+ <form id="maintenanceForm"
+ method="post"
+ action="{{ path('maintenance_new') }}"
+ enctype="multipart/form-data"
+ style="display:none; margin-top:12px;">
+
+<input type="hidden" name="date" id="mf_date">
+
+<input class="btn" name="fullName" placeholder="Nom complet" required>
+<input class="btn" name="email" type="email" placeholder="Email" required>
+<input class="btn" name="phone" placeholder="Téléphone">
+
+<input class="btn" name="addressLine1" placeholder="Adresse (numéro + rue)" required>
+<input class="btn" name="addressLine2" placeholder="Complément d’adresse (optionnel)">
+<input class="btn" name="city" placeholder="Ville" required>
+<input class="btn" name="postalCode" placeholder="Code postal" required>
+
+<select class="btn" name="type">
+<option value="cleaning">Nettoyage</option>
+<option value="inspection">Inspection</option>
+<option value="repair">Dépannage</option>
+</select>
+
+<textarea class="btn" name="comment" placeholder="Commentaire (orientation, hauteur, accès, particularités…)" rows="3"></textarea>
+
+<label style="opacity:.9">Ajouter des photos (max 5 — JPG/PNG/WebP, 10 Mo chacune)</label>
+<input class="btn" type="file" name="photos[]" accept="image/jpeg,image/png,image/webp" multiple>
+
+<button class="btn btn-primary">Demander cette date</button>
+</form>
+
 
   {# ==== FORMULAIRE DEMANDE DE DEVIS ==== #}
   <section class="dash" id="devis">

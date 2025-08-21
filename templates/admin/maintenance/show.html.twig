@@ -1,0 +1,38 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Demande #{{ item.id }} — Admin{% endblock %}
+
+{% block body %}
+<h1>Demande #{{ item.id }}</h1>
+
+<p><strong>Date souhaitée :</strong> {{ item.requestedDate|date('d/m/Y H:i') }}</p>
+<p><strong>Client :</strong> {{ item.fullName }} — {{ item.email }} — {{ item.phone ?: '—' }}</p>
+<p><strong>Adresse :</strong><br>
+  {{ item.addressLine1 }}{% if item.addressLine2 %}, {{ item.addressLine2 }}{% endif %}<br>
+  {{ item.postalCode }} {{ item.city }}
+</p>
+<p><strong>Type :</strong> {{ {'cleaning':'Nettoyage','inspection':'Inspection','repair':'Dépannage'}[item.type]|default(item.type) }}</p>
+<p><strong>Commentaire :</strong><br>{{ item.comment ?: '—' }}</p>
+<p><strong>Statut :</strong> {{ item.status }}</p>
+
+<div class="btn-group" role="group" style="margin:12px 0">
+  <a class="btn btn-outline-light" href="{{ path('admin_maintenance_status', {id:item.id, status:'pending'}) }}">En attente</a>
+  <a class="btn btn-outline-light" href="{{ path('admin_maintenance_status', {id:item.id, status:'confirmed'}) }}">Confirmée</a>
+  <a class="btn btn-outline-light" href="{{ path('admin_maintenance_status', {id:item.id, status:'done'}) }}">Terminée</a>
+  <a class="btn btn-outline-danger" href="{{ path('admin_maintenance_status', {id:item.id, status:'cancelled'}) }}">Annulée</a>
+</div>
+
+<hr>
+
+<h3>Photos ({{ item.photos ? item.photos|length : 0 }})</h3>
+<div style="display:flex; gap:10px; flex-wrap:wrap">
+  {% for url in item.photos ?? [] %}
+    <a href="{{ url }}" target="_blank" rel="noopener">
+      <img src="{{ url }}" alt="photo" style="width:140px; height:140px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,.15)">
+    </a>
+  {% else %}
+    <div>Aucune photo.</div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}
