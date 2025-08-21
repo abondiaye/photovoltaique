@@ -2,6 +2,8 @@
    RESET + NORMALISATION
    =========================== */
 
+   @use '../globals' as *;
+
    *,
    *::before,
    *::after {

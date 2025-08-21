@@ -1,57 +1,30 @@
-.layout {
-  display: flex;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-}
+// ===============================
+// Fichier principal SCSS - app.scss
+// ===============================
 
-.sidebar {
-  background: #0a1a2f;
-  color: #fff;
-  width: 220px;
-  padding: 20px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+// 1. Abstracts (toujours en tout premier)
+@use './scss/abstracts/globals' as *;
 
-  ul {
-      list-style: none;
-      padding: 0;
-      width: 100%;
-      text-align: center;
+// 2. Vendors (librairies tierces comme Bootstrap, etc.)
+@use './scss/vendors/bootstrap'; // si Bootstrap
 
-      li {
-          margin: 15px 0;
+// 3. Base (reset CSS, typographie, etc.)
+@use './scss/base/reset';
+@use './scss/base/typography';
 
-          a {
-              color: #fff;
-              text-decoration: none;
-              font-weight: bold;
-              &:hover {
-                  color: #ffcc00;
-              }
-          }
-      }
-  }
-}
+// 4. Layout (structure globale : header, footer, grille, etc.)
+@use './scss/layout/header';
+@use './scss/layout/footer';
+@use './scss/layout/grid';
 
-.content {
-  flex: 1;
-  padding: 40px;
+// 5. Components (boutons, cartes, formulaires, etc.)
+@use './scss/components/button';
+// @use './scss/components/card'; // ajoute plus tard si besoin
 
-  h1 {
-      color: #0a1a2f;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-  }
+// 6. Pages (styles spécifiques à certaines pages)
+@use './scss/pages/home';
+@use './scss/pages/panneau';
+@use './scss/pages/app';
 
-  p {
-      font-size: 1.2rem;
-      margin-bottom: 40px;
-      color: #333;
-  }
-}
-
-.qrcode img {
-  width: 150px;
-  height: 150px;
-}
+// 7. Themes (couleurs ou variations de thèmes)
+@use './scss/themes/default';

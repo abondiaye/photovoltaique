@@ -1,0 +1,61 @@
+{# templates/admin/dashboard.html.twig #}
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Dashboard — Admin{% endblock %}
+
+{% block body %}
+    <h1 style="margin:0 0 16px">Bienvenue 👋</h1>
+
+    <div class="cards" style="display:flex; gap:20px; margin-bottom:30px;">
+        <div class="card" style="flex:1; padding:20px; border-radius:12px; background:#f6f6f6; text-align:center;">
+            <div style="font-size:14px; color:#555;">Leads totaux</div>
+            <div style="font-size:26px; font-weight:800;">
+                {{ leadsCount|default(0) }}
+            </div>
+        </div>
+        <div class="card" style="flex:1; padding:20px; border-radius:12px; background:#f6f6f6; text-align:center;">
+            <div style="font-size:14px; color:#555;">Nouveaux</div>
+            <div style="font-size:26px; font-weight:800;">
+                {{ newCount|default(0) }}
+            </div>
+        </div>
+        <div class="card" style="flex:1; padding:20px; border-radius:12px; background:#f6f6f6; text-align:center;">
+            <div style="font-size:14px; color:#555;">Gagnés</div>
+            <div style="font-size:26px; font-weight:800;">
+                {{ wonCount|default(0) }}
+            </div>
+        </div>
+    </div>
+
+    <h2>Derniers leads</h2>
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+        <thead>
+            <tr style="background:#eee;">
+                <th style="padding:8px; text-align:left;">Nom</th>
+                <th style="padding:8px; text-align:left;">Email</th>
+                <th style="padding:8px; text-align:left;">Statut</th>
+                <th style="padding:8px; text-align:left;">Créé le</th>
+                <th style="padding:8px; text-align:left;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lead in recentLeads %}
+            <tr>
+                <td style="padding:8px;">{{ lead.fullName }}</td>
+                <td style="padding:8px;">{{ lead.email }}</td>
+                <td style="padding:8px;">{{ lead.status }}</td>
+                <td style="padding:8px;">{{ lead.createdAt|date('d/m/Y H:i') }}</td>
+                <td style="padding:8px;">
+                    <a href="{{ path('admin_lead_show', {id: lead.id}) }}">👁 Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" style="padding:12px; text-align:center; color:#888;">
+                    Aucun lead récent.
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

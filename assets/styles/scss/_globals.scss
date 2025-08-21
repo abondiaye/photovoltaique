@@ -1,0 +1,7 @@
+// =======================
+// Fichier GLOBAL pour centraliser tous les imports abstraits
+// =======================
+
+@use './variables' as *;
+@use './functions' as *;
+@use './mixins' as *;

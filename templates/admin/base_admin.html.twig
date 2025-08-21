@@ -1,0 +1,23 @@
+{# templates/admin/base.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Admin — Photovoltaique{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/admin.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>Admin</h2>
+        <ul>
+            <li><a href="{{ path('admin_dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ path('admin_leads') }}">Leads</a></li>
+            <li><a href="{{ path('admin_users') }}">Utilisateurs</a></li>
+        </ul>
+    </aside>
+
+    <main class="content">
+        {% block body %}{% endblock %}
+    </main>
+</body>
+</html>

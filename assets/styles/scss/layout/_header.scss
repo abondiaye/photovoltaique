@@ -1,6 +1,7 @@
 // ============================
 // Header principal
 // ============================
+@use '../globals' as *;
 
 header {
     background-color: $color-dark;

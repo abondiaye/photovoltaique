@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Panneau;
-use App\Form\PanneauType;
+use App\Form\Panneau1Type;
 use App\Repository\PanneauRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ final class PanneauController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $panneau = new Panneau();
-        $form = $this->createForm(PanneauType::class, $panneau);
+        $form = $this->createForm(Panneau1Type::class, $panneau);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ final class PanneauController extends AbstractController
     #[Route('/{id}/edit', name: 'app_panneau_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Panneau $panneau, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(PanneauType::class, $panneau);
+        $form = $this->createForm(Panneau1Type::class, $panneau);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

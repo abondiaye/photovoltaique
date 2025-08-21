@@ -1,6 +1,7 @@
 // ============================
 // Pied de page
 // ============================
+@use '../globals' as *;
 
 footer {
     background-color: $color-secondary;

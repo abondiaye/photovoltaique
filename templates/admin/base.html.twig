@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Admin — Photovoltaique{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{ --bg:#0c0f1a; --panel:rgba(255,255,255,.06); --stroke:rgba(255,255,255,.12); --accent:#a657ff; --accent2:#00d2ff; }
+    *{ box-sizing:border-box }
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto; color:#e9ecf1; background: linear-gradient(160deg,#0f1220,#0b0f1a) }
+    .wrap{ display:grid; grid-template-columns: 240px 1fr; min-height:100vh }
+    .sidebar{ padding:20px; border-right:1px solid var(--stroke); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); position:sticky; top:0; height:100vh }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; margin-bottom:16px }
+    .badge{ width:28px; height:28px; border-radius:10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+    .menu a{ display:block; padding:10px 12px; margin:6px 0; border-radius:12px; color:#e9ecf1; text-decoration:none; border:1px solid transparent }
+    .menu a:hover{ background:var(--panel); border-color:var(--stroke) }
+    .content{ padding:22px 26px }
+    .cards{ display:grid; grid-template-columns: repeat(12,1fr); gap:14px }
+    .card{ grid-column: span 4; padding:16px; border-radius:16px; border:1px solid var(--stroke); background:var(--panel) }
+    table{ width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--stroke); border-radius:12px; overflow:hidden }
+    th, td{ padding:10px 12px; border-bottom:1px solid var(--stroke) }
+    th{ text-align:left; font-weight:700 }
+    .actions a, .actions button{ margin-right:8px }
+    .btn{ padding:8px 12px; border-radius:10px; border:1px solid var(--stroke); background:transparent; color:#fff; text-decoration:none; cursor:pointer }
+    .btn.primary{ background:linear-gradient(135deg,var(--accent),var(--accent2)); border:0 }
+    .status{ padding:4px 8px; border-radius:999px; border:1px solid var(--stroke); font-size:12px }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <aside class="sidebar">
+      <div class="brand"><span class="badge"></span> Admin</div>
+      <nav class="menu">
+        <a href="{{ path('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ path('admin_leads') }}">Leads</a>
+      </nav>
+    </aside>
+    <main class="content">
+      {% for label, msgs in app.flashes %}
+        {% for m in msgs %}
+          <div class="card" style="grid-column:span 12; border-left:4px solid #34d399">{{ m }}</div>
+        {% endfor %}
+      {% endfor %}
+      {% block body %}{% endblock %}
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Lead #{{ lead.id }} — Admin{% endblock %}
+{% block body %}
+  <a class="btn" href="{{ path('admin_leads') }}">← Retour</a>
+  <h2 style="margin:12px 0">Lead #{{ lead.id }}</h2>
+
+  <div class="cards">
+    <div class="card" style="grid-column:span 6">
+      <div><strong>Nom</strong></div>
+      <div>{{ lead.fullName }}</div>
+      <div style="margin-top:10px"><strong>Email</strong></div>
+      <div>{{ lead.email }}</div>
+      <div style="margin-top:10px"><strong>Téléphone</strong></div>
+      <div>{{ lead.phone ?: '—' }}</div>
+    </div>
+
+    <div class="card" style="grid-column:span 6">
+      <div><strong>Surface toit</strong></div>
+      <div>{{ lead.roofAreaM2 ?: '—' }} m²</div>
+      <div style="margin-top:10px"><strong>Ombrage</strong></div>
+      <div>{{ lead.hasShadow ? 'Beaucoup' : 'Peu' }}</div>
+      <div style="margin-top:10px"><strong>Créé</strong></div>
+      <div>{{ lead.createdAt|date('d/m/Y H:i') }}</div>
+    </div>
+
+    <div class="card" style="grid-column:span 12">
+      <div><strong>Message</strong></div>
+      <div style="opacity:.9">{{ lead.message ?: '—' }}</div>
+    </div>
+
+    <div class="card" style="grid-column:span 12">
+      <form method="post" action="{{ path('admin_lead_status', {id: lead.id}) }}" style="display:flex; gap:10px; align-items:center">
+        <label for="status"><strong>Statut</strong></label>
+        <select id="status" name="status" class="btn">
+          {% for s in ['new','qualified','quoted','won','lost'] %}
+            <option value="{{ s }}" {% if s==lead.status %}selected{% endif %}>{{ s }}</option>
+          {% endfor %}
+        </select>
+        <button class="btn primary" type="submit">Mettre à jour</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

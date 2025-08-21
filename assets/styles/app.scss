@@ -1,27 +1,27 @@
 // Abstracts (toujours en tout premier)
-@import './scss/abstracts/variables';
-@import './scss/abstracts/functions';
-@import './scss/abstracts/mixins';
+@use './scss/abstracts/variables' as *;
+@use './scss/abstracts/functions' as *;
+@use './scss/abstracts/mixins' as *;
 
 // Vendors
-@import './scss/vendors/bootstrap';
+@use './scss/vendors/bootstrap' as *;
 
 // Base
-@import './scss/base/reset';
-@import './scss/base/typography';
+@use './scss/base/reset' as *;
+@use './scss/base/typography' as *;
 
 // Layout
-@import './scss/layout/header';
-@import './scss/layout/footer';
-@import './scss/layout/grid';
+@use './scss/layout/header' as *;
+@use './scss/layout/footer' as *;
+@use './scss/layout/grid' as *;
 
 // Components
-@import './scss/components/button';
+@use './scss/components/button' as *;
 
 // Pages
-@import './scss/pages/home';
-@import './scss/pages/panneau';
-@import './scss/pages/app';
+@use './scss/pages/home' as *;
+@use './scss/pages/panneau' as *;
+@use './scss/pages/app' as *;
 
 // Themes
-@import './scss/themes/default';
+@use './scss/themes/default' as *;

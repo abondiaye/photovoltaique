@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Quote;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'installation')]
@@ -13,8 +14,8 @@ class Installation
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Quote::class)]
-    #[ORM\JoinColumn(nullable: false, onDelete: 'SET NULL')]
-    private Quote $quote;
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?Quote $quote = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $scheduledAt;

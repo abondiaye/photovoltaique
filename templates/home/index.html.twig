@@ -1,29 +1,101 @@
+{# templates/home/index.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil — Photovoltaique{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <style>
+    /* Mois + année */
+    #monthYear {
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+    /* En-têtes & jours */
+    #calendarTable th,
+    #calendarTable td {
+      color: #fff;
+    }
+    #calendarTable th {
+      opacity: .9;
+      font-weight: 600;
+    }
+    #calendarTable td {
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      cursor: pointer;
+      transition: background .2s ease, transform .05s ease;
+    }
+    #calendarTable td:hover { background: rgba(142,38,226,.35); }
+
+    /* Jour courant (si ton JS lui met un style inline, on renforce ici) */
+    #calendarTable td.is-today {
+      background: rgba(244,177,253,.9) !important;
+      color: #222 !important;
+      font-weight: 800;
+    }
+
+    /* Optionnel: état “sélectionné” quand l’utilisateur clique */
+    #calendarTable td.selected {
+      outline: 2px solid #fff;
+      outline-offset: -2px;
+      transform: scale(0.98);
+    }
+  </style>
+{% endblock %}
+
 
 {% block body %}
+  {# ==== HERO ==== #}
   <section class="hero">
     <div>
       <h1 class="h-title">Net, rapide et puissant — design soigné pour votre énergie ☀️</h1>
       <p class="h-sub">Estimations instantanées, devis transparents et un tableau de bord élégant pour suivre votre production solaire.</p>
 
-      <div class="cta">
+      <div class="cta" style="display:flex; gap:10px; flex-wrap:wrap">
         <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
         <a class="btn" href="#realisations">Voir les réalisations</a>
 
-        {# Bouton animé (intégré) #}
         <a href="#devis" style="text-decoration:none">
           <button class="button" aria-label="Aller au formulaire de devis">
             <div class="bg"></div>
-            {# ton SVG splash ici #}
             <div class="wrap">
-              {# ton texte animé ici #}
+              <div class="content">
+                <span class="char state-1">
+                  <span data-label="D" style="--i:1">D</span>
+                  <span data-label="E" style="--i:2">E</span>
+                  <span data-label="V" style="--i:3">V</span>
+                  <span data-label="I" style="--i:4">I</span>
+                  <span data-label="S" style="--i:5">S</span>
+                  <span data-label=" " style="--i:6"> </span>
+                  <span data-label="R" style="--i:8">R</span>
+                  <span data-label="A" style="--i:9">A</span>
+                  <span data-label="P" style="--i:10">P</span>
+                  <span data-label="I" style="--i:11">I</span>
+                  <span data-label="D" style="--i:12">D</span>
+                  <span data-label="E" style="--i:13">E</span>
+                </span>
+        
+                <div class="icon"><div></div></div>
+        
+                <span class="char state-2">
+                  <span data-label="" style="--i:1">C</span>
+                  <span data-label="" style="--i:2">O</span>
+                  <span data-label="" style="--i:3">M</span>
+                  <span data-label="" style="--i:4">M</span>
+                  <span data-label="" style="--i:5">E</span>
+                  <span data-label="" style="--i:6">N</span>
+                  <span data-label="" style="--i:7">C</span>
+                  <span data-label="" style="--i:8">E</span>
+                  <span data-label="" style="--i:9">R</span>
+                </span>
+              </div>
             </div>
           </button>
         </a>
       </div>
     </div>
+        
 
     <div class="glass" style="height:360px; border-radius:28px; display:flex; align-items:center; justify-content:center;">
       <div style="text-align:center;">
@@ -33,26 +105,47 @@
     </div>
   </section>
 
-  {# ==== Calendrier ==== #}
+  {# ==== CALENDRIER du mois en cours ==== #}
   <section class="dash">
     <div class="card xl glass" style="grid-column:span 12;">
-      <h3 id="monthYear"></h3>
+      <h3 id="monthYear" style="margin:0 0 10px"></h3>
       <table id="calendarTable" style="width:100%; border-collapse:collapse; text-align:center;">
         <thead>
           <tr>
-            <th>Lu</th><th>Ma</th><th>Me</th><th>Je</th><th>Ve</th><th>Sa</th><th>Di</th>
+            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Lu</th>
+            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Ma</th>
+            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Me</th>
+            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Je</th>
+            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Ve</th>
+            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Sa</th>
+            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Di</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
+
+      {# Formulaire affiché après clic sur une date #}
+      <form id="maintenanceForm" method="post" action="{{ path('maintenance_new') }}" style="display:none; margin-top:12px;">
+        <input type="hidden" name="date" id="mf_date">
+        <input class="btn" name="fullName" placeholder="Nom complet" required>
+        <input class="btn" name="email" type="email" placeholder="Email" required>
+        <input class="btn" name="phone" placeholder="Téléphone">
+        <select class="btn" name="type">
+          <option value="cleaning">Nettoyage</option>
+          <option value="inspection">Inspection</option>
+          <option value="repair">Dépannage</option>
+        </select>
+        <textarea class="btn" name="message" placeholder="Détails…"></textarea>
+        <button class="btn btn-primary">Demander cette date</button>
+      </form>
     </div>
   </section>
 
-  {# ==== Formulaire devis ==== #}
+  {# ==== FORMULAIRE DEMANDE DE DEVIS ==== #}
   <section class="dash" id="devis">
     <div class="card xl glass">
       <h3>Demande de devis</h3>
-      <form method="post" action="{{ path('lead_new') }}">
+      <form method="post" action="{{ path('lead_new') }}" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
         <input class="btn" name="fullName" placeholder="Nom complet" required>
         <input class="btn" name="email" type="email" placeholder="Email" required>
         <input class="btn" name="phone" placeholder="Téléphone">
@@ -66,40 +159,72 @@
     </div>
   </section>
 
+  {# ==== JS calendrier ==== #}
   <script>
-    (function(){
+    (function () {
       const today = new Date();
       const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
-      document.getElementById('monthYear').textContent = monthNames[today.getMonth()] + " " + today.getFullYear();
+      const monthYearEl = document.getElementById('monthYear');
+      const tableBody = document.querySelector('#calendarTable tbody');
 
-      const jsFirst = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
-      const firstDayIndex = (jsFirst + 6) % 7;
+      // dessine le calendrier du mois courant
+      monthYearEl.textContent = monthNames[today.getMonth()] + " " + today.getFullYear();
+
+      const firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const jsFirst = firstOfMonth.getDay();         // 0..6 (0 = dimanche)
+      const firstDayIndex = (jsFirst + 6) % 7;       // Lundi = 0
       const lastDate = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
 
-      const tbody = document.querySelector('#calendarTable tbody');
-      tbody.innerHTML = '';
-      let date = 1;
-
-      for(let i=0; i<6; i++){
+      tableBody.innerHTML = '';
+      let d = 1;
+      for (let i = 0; i < 6; i++) {
         const tr = document.createElement('tr');
-        for(let j=0; j<7; j++){
+        for (let j = 0; j < 7; j++) {
           const td = document.createElement('td');
-          if(i === 0 && j < firstDayIndex || date > lastDate){
-            td.textContent = '';
-          } else {
-            td.textContent = date;
-            if(date === today.getDate()){
+          td.style.padding='10px';
+          td.style.border='1px solid rgba(255,255,255,.08)';
+          td.style.cursor='pointer';
+          td.onmouseover=()=> td.style.background='rgba(142,38,226,.35)';
+          td.onmouseout =()=> td.style.background='transparent';
+
+          if (i === 0 && j < firstDayIndex) td.textContent = '';
+          else if (d > lastDate) td.textContent = '';
+          else {
+            td.textContent = d;
+            if (d === today.getDate()) {
               td.style.background='rgba(244,177,253,.9)';
               td.style.color='#222';
               td.style.fontWeight='800';
             }
-            date++;
+            d++;
           }
           tr.appendChild(td);
         }
-        tbody.appendChild(tr);
-        if(date > lastDate) break;
+        tableBody.appendChild(tr);
+        if (d > lastDate) break;
       }
+
+      // clic : afficher le formulaire + préremplir la date
+      const form = document.getElementById('maintenanceForm');
+      const inputDate = document.getElementById('mf_date');
+
+      tableBody.addEventListener('click', (e) => {
+        const td = e.target.closest('td');
+        if (!td) return;
+        const text = td.textContent.trim();
+        if (!text) return; // case vide
+        const day = parseInt(text, 10);
+        const month = today.getMonth() + 1; // 1..12
+        const year = today.getFullYear();
+
+        const iso = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}T12:00:00`;
+        inputDate.value = iso;
+
+        form.style.display = 'grid';
+        form.style.gridTemplateColumns = '1fr 1fr';
+        form.style.gap = '12px';
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     })();
   </script>
 {% endblock %}

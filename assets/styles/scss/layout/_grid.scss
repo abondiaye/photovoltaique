@@ -1,6 +1,7 @@
 // ============================
 // Grille de mise en page simple
 // ============================
+@use '../globals' as *;
 
 .container {
     max-width: 1140px;
