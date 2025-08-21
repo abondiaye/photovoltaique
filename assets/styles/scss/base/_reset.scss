@@ -1,23 +1,64 @@
-// ============================
-// Reset CSS basique
-// ============================
+/* ===========================
+   RESET + NORMALISATION
+   =========================== */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: $line-height-base;
-  color: $color-dark;
-  background-color: $color-white;
-}
+   *,
+   *::before,
+   *::after {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+   
+   html {
+     font-size: 100%; // 16px par défaut
+     scroll-behavior: smooth;
+   }
+   
+   body {
+     font-family: $font-family-base;
+     font-size: $font-size-base;
+     line-height: $line-height-base;
+     color: $color-dark;
+     background-color: $color-light;
+     min-height: 100vh;
+     -webkit-font-smoothing: antialiased;
+   }
+   
+   img,
+   picture,
+   video,
+   canvas {
+     max-width: 100%;
+     display: block;
+   }
+   
+   input,
+   button,
+   textarea,
+   select {
+     font: inherit;
+     border: none;
+     outline: none;
+     background: none;
+   }
+   
+   button {
+     cursor: pointer;
+   }
+   
+   a {
+     text-decoration: none;
+     color: inherit;
+   }
+   
+   ul,
+   ol {
+     list-style: none;
+   }
+   
+   table {
+     border-collapse: collapse;
+     border-spacing: 0;
+   }
+   

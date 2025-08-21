@@ -1,47 +1,75 @@
-// ============================
-// Styles de la page d'accueil
-// ============================
-
-.nav-2 {
-  border-radius: 10px;
-  background-color: rgba(230, 255, 255, 0.7);
-  text-align: center;
-  white-space: nowrap;
-  width: 6rem;
-  height: 25rem;
-  overflow: hidden;
-  transition: all 1s ease;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
-.nav-item-2:hover {
-  filter: brightness(120%);
-  transform: scale(1.1);
+/* Navbar Burger */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #009999;
+  padding: 0.5rem 1rem;
+  color: white;
 }
 
-.nav-item-2 {
-  transition: all 0.2s;
+.burger {
+  font-size: 1.8rem;
   cursor: pointer;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-size: 18px;
 }
 
-.nav-item:hover {
-  filter: brightness(120%);
-  transform: scale(1.1);
+.nav-links {
+  display: none;
+  flex-direction: column;
+  background: #007777;
+  position: absolute;
+  top: 3.5rem;
+  left: 0;
+  width: 200px;
 }
 
-.nav-item {
-  display: inline-block;
-  transition: all 0.2s;
-  cursor: pointer;
-  width: 7rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 18px;
+.nav-links a {
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
 }
 
-.nav-text {
-  color: #009999;
-  font-size: 14px;
+.nav-links a:hover {
+  background: #005555;
+}
+
+.nav-links.open {
+  display: flex;
+}
+
+/* Contenu principal */
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.text-zone {
+  max-width: 50%;
+}
+
+.image-zone img {
+  max-width: 200px;
+  height: auto;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .nav-links {
+      display: flex !important;
+      flex-direction: row;
+      position: static;
+      background: none;
+      width: auto;
+  }
+
+  .burger {
+      display: none;
+  }
 }

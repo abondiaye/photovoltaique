@@ -1,63 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Solar Sirius{% endblock %}
+{% block title %}Accueil — Photovoltaique{% endblock %}
 
 {% block body %}
-<div class="layout">
-    <!-- Navbar gauche -->
-    <div class="nav-2" id="nav-2">
-        <div class="nav-item-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-house-fill" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
-            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
-          </svg>
-          <div class="nav-text">
-            Home
-          </div>
-        </div>
-        <div class="nav-item-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-chat-left-text" viewBox="0 0 16 16">
-            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
-          </svg>
-          <div class="nav-text">
-            Chats
-          </div>
-        </div>
-        <div class="nav-item-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-calendar-week" viewBox="0 0 16 16">
-            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-          </svg>
-          <div class="nav-text">
-            Calander
-          </div>
-        </div>
-        <div class="nav-item-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#009999" class="bi bi-sliders" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z" />
-          </svg>
-          <div class="nav-text">
-            Settings
-          </div>
-        </div>
+  <section class="hero">
+    <div>
+      <h1 class="h-title">Net, rapide et puissant — design soigné pour votre énergie ☀️</h1>
+      <p class="h-sub">Estimations instantanées, devis transparents et un tableau de bord élégant pour suivre votre production solaire.</p>
+
+      <div class="cta">
+        <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
+        <a class="btn" href="#realisations">Voir les réalisations</a>
+
+        {# Bouton animé (intégré) #}
+        <a href="#devis" style="text-decoration:none">
+          <button class="button" aria-label="Aller au formulaire de devis">
+            <div class="bg"></div>
+            {# ton SVG splash ici #}
+            <div class="wrap">
+              {# ton texte animé ici #}
+            </div>
+          </button>
+        </a>
       </div>
     </div>
-  </div>
-  </div>
 
-    <!-- Contenu principal -->
-    <main class="content">
-        <h1>Solar Sirius</h1>
-        <p>
-            Nettoyage &amp; entretien de panneaux, remplacement de panneaux, 
-            onduleurs et entretien de toits végétalisés.
-        </p>
+    <div class="glass" style="height:360px; border-radius:28px; display:flex; align-items:center; justify-content:center;">
+      <div style="text-align:center;">
+        <div style="font-size:92px; line-height:1">🔋</div>
+        <div style="opacity:.8">Widget de production en temps réel</div>
+      </div>
+    </div>
+  </section>
 
-        <!-- QR Code -->
-        <div class="qrcode">
-            <img src="{{ asset('images/qrcode.png') }}" alt="QR Code vers notre site">
-        </div>
-    </main>
-</div>
+  {# ==== Calendrier ==== #}
+  <section class="dash">
+    <div class="card xl glass" style="grid-column:span 12;">
+      <h3 id="monthYear"></h3>
+      <table id="calendarTable" style="width:100%; border-collapse:collapse; text-align:center;">
+        <thead>
+          <tr>
+            <th>Lu</th><th>Ma</th><th>Me</th><th>Je</th><th>Ve</th><th>Sa</th><th>Di</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  {# ==== Formulaire devis ==== #}
+  <section class="dash" id="devis">
+    <div class="card xl glass">
+      <h3>Demande de devis</h3>
+      <form method="post" action="{{ path('lead_new') }}">
+        <input class="btn" name="fullName" placeholder="Nom complet" required>
+        <input class="btn" name="email" type="email" placeholder="Email" required>
+        <input class="btn" name="phone" placeholder="Téléphone">
+        <input class="btn" name="roofAreaM2" type="number" step="0.1" placeholder="Surface de toit (m²)">
+        <select class="btn" name="hasShadow">
+          <option value="0">Peu d'ombrage</option>
+          <option value="1">Beaucoup d'ombrage</option>
+        </select>
+        <button class="btn btn-primary" style="grid-column:span 2">Envoyer</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      const today = new Date();
+      const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+      document.getElementById('monthYear').textContent = monthNames[today.getMonth()] + " " + today.getFullYear();
+
+      const jsFirst = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+      const firstDayIndex = (jsFirst + 6) % 7;
+      const lastDate = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+
+      const tbody = document.querySelector('#calendarTable tbody');
+      tbody.innerHTML = '';
+      let date = 1;
+
+      for(let i=0; i<6; i++){
+        const tr = document.createElement('tr');
+        for(let j=0; j<7; j++){
+          const td = document.createElement('td');
+          if(i === 0 && j < firstDayIndex || date > lastDate){
+            td.textContent = '';
+          } else {
+            td.textContent = date;
+            if(date === today.getDate()){
+              td.style.background='rgba(244,177,253,.9)';
+              td.style.color='#222';
+              td.style.fontWeight='800';
+            }
+            date++;
+          }
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+        if(date > lastDate) break;
+      }
+    })();
+  </script>
 {% endblock %}

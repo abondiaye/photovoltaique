@@ -1,0 +1,74 @@
+// =======================
+// Variables globales SCSS
+// =======================
+
+// 🎨 Couleurs principales
+$color-dark: #222222;
+$color-light: #ffffff;
+$color-primary: #ffb400; // doré
+$color-secondary: #000000; // noir
+$color-accent: #ff5733; // orange/rouge
+$color-success: #28a745;
+$color-warning: #ffc107;
+$color-danger: #dc3545;
+$color-info: #17a2b8;
+
+// 🌈 Dégradés
+$gradient-primary: linear-gradient(45deg, $color-primary, $color-accent);
+$gradient-dark: linear-gradient(135deg, $color-dark, #111111);
+
+// 🖋 Typographie
+$font-family-base: 'Roboto', Arial, sans-serif;
+$font-size-base: 16px;
+$font-size-lg: 1.25rem; // 20px
+$font-size-sm: 0.875rem; // 14px
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$line-height-base: 1.5;
+
+// 📏 Espacements
+$spacer: 1rem; // 16px
+$spacer-sm: 0.5rem; // 8px
+$spacer-lg: 2rem; // 32px
+$container-padding: 1.5rem;
+
+// 🔲 Bordures et radius
+$border-radius: 0.25rem; // 4px
+$border-radius-lg: 0.5rem; // 8px
+$border-radius-pill: 50rem;
+
+// 🌑 Ombres
+$box-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+$box-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+// 📱 Breakpoints responsive (Bootstrap style)
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// =======================
+// Variables spécifiques pages
+// =======================
+
+// 🏠 Home
+$home-bg-color: $color-dark;
+$home-text-color: $color-light;
+$home-gradient: $gradient-primary;
+
+// ⚡ Panneau
+$panneau-bg-color: $color-primary;
+$panneau-text-color: $color-dark;
+
+// 📱 App
+$app-bg-color: $color-light;
+$app-text-color: $color-dark;
+
+// =======================
+// Variables pour animations
+// =======================
+$transition-fast: 0.2s ease-in-out;
+$transition-normal: 0.4s ease-in-out;
+$transition-slow: 0.8s ease-in-out;
