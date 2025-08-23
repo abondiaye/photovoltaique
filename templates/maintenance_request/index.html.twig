@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des demandes de maintenance{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>📋 Liste des demandes de maintenance</h1>
+
+    <a href="{{ path('app_maintenance_request_new') }}" class="btn btn-success mb-3">
+        ➕ Nouvelle demande
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Client</th>
+                <th>Email</th>
+                <th>Ville</th>
+                <th>Type</th>
+                <th>Date souhaitée</th>
+                <th>Statut</th>
+                <th>Créée le</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for request in requests %}
+            <tr>
+                <td>#{{ request.id }}</td>
+                <td>{{ request.fullName }}</td>
+                <td>{{ request.email }}</td>
+                <td>{{ request.city }}</td>
+                <td>
+                    {% if request.type == constant('App\\\\Entity\\\\MaintenanceRequest::TYPE_CLEANING') %}
+                        🧹 Nettoyage
+                    {% elseif request.type == constant('App\\\\Entity\\\\MaintenanceRequest::TYPE_INSPECTION') %}
+                        🔎 Inspection
+                    {% elseif request.type == constant('App\\\\Entity\\\\MaintenanceRequest::TYPE_REPAIR') %}
+                        🛠 Réparation
+                    {% endif %}
+                </td>
+                <td>{{ request.requestedDate|date('d/m/Y H:i') }}</td>
+                <td>
+                    {% if request.status == constant('App\\\\Entity\\\\MaintenanceRequest::STATUS_PENDING') %}
+                        <span class="badge bg-secondary">⏳ En attente</span>
+                    {% elseif request.status == constant('App\\\\Entity\\\\MaintenanceRequest::STATUS_CONFIRMED') %}
+                        <span class="badge bg-primary">✅ Confirmée</span>
+                    {% elseif request.status == constant('App\\\\Entity\\\\MaintenanceRequest::STATUS_DONE') %}
+                        <span class="badge bg-success">✔ Terminée</span>
+                    {% elseif request.status == constant('App\\\\Entity\\\\MaintenanceRequest::STATUS_CANCELLED') %}
+                        <span class="badge bg-danger">❌ Annulée</span>
+                    {% endif %}
+                </td>
+                <td>{{ request.createdAt|date('d/m/Y H:i') }}</td>
+                <td>
+                    <a href="{{ path('app_maintenance_request_show', {id: request.id}) }}" class="btn btn-sm btn-info">👁 Voir</a>
+                    <a href="{{ path('app_maintenance_request_edit', {id: request.id}) }}" class="btn btn-sm btn-warning">✏ Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9" class="text-center">Aucune demande trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

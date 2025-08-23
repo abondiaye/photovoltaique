@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-4">
+    <nav class="mb-4">
+        <a class="btn btn-outline-secondary me-2" href="{{ path('admin_dashboard') }}">🏠 Dashboard</a>
+        <a class="btn btn-outline-primary me-2" href="{{ path('admin_maintenance_index') }}">🛠 Maintenance</a>
+        <a class="btn btn-outline-info me-2" href="{{ path('app_maintenance_request_index') }}">📋 Demandes (CRUD)</a>
+        <a class="btn btn-outline-dark" href="{{ path('admin_lead_index') }}">👤 Leads</a>
+    </nav>
+    {% block admin_body %}{% endblock %}
+</div>
+{% endblock %}

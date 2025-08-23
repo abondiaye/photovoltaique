@@ -1,69 +1,41 @@
-{# templates/admin/lead/index.html.twig #}
-{% extends 'admin/base.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
-{% block title %}Leads — Admin{% endblock %}
+{% block title %}Admin · Maintenance{% endblock %}
 
-{% block body %}
-  <h1 style="margin:0 0 16px">Leads</h1>
+{% block admin_body %}
+<h1>🛠 Demandes de maintenance (vue admin)</h1>
 
-  {# Filtres par statut #}
-  <div style="display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 18px">
-    <a class="btn" href="{{ path('admin_leads') }}">Tous</a>
-    <a class="btn" href="{{ path('admin_leads', {status:'new'}) }}">Nouveaux</a>
-    <a class="btn" href="{{ path('admin_leads', {status:'qualified'}) }}">Qualifiés</a>
-    <a class="btn" href="{{ path('admin_leads', {status:'quoted'}) }}">Devis envoyés</a>
-    <a class="btn" href="{{ path('admin_leads', {status:'won'}) }}">Gagnés</a>
-    <a class="btn" href="{{ path('admin_leads', {status:'lost'}) }}">Perdus</a>
-  </div>
+<a href="{{ path('app_maintenance_request_new') }}" class="btn btn-success mb-3">➕ Nouvelle demande</a>
 
-  <div style="opacity:.8; margin-bottom:10px">
-    {% if status %}
-      Filtre actif : <strong>{{ status }}</strong>
-      — <a href="{{ path('admin_leads') }}">Réinitialiser</a>
-    {% else %}
-      Affichage : <strong>Tous les leads</strong>
-    {% endif %}
-  </div>
-
-  <table style="width:100%; border-collapse:collapse; background:var(--panel, rgba(255,255,255,.06)); border:1px solid var(--stroke, rgba(255,255,255,.12)); border-radius:12px; overflow:hidden">
-    <thead>
-      <tr style="background:rgba(255,255,255,.05)">
-        <th style="text-align:left; padding:10px 12px;">#</th>
-        <th style="text-align:left; padding:10px 12px;">Nom</th>
-        <th style="text-align:left; padding:10px 12px;">Email</th>
-        <th style="text-align:left; padding:10px 12px;">Téléphone</th>
-        <th style="text-align:left; padding:10px 12px;">Surface (m²)</th>
-        <th style="text-align:left; padding:10px 12px;">Statut</th>
-        <th style="text-align:left; padding:10px 12px;">Créé le</th>
-        <th style="text-align:left; padding:10px 12px;">Actions</th>
-      </tr>
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Ville</th>
+            <th>Type</th>
+            <th>Statut</th>
+            <th>Date souhaitée</th>
+            <th>Actions</th>
+        </tr>
     </thead>
     <tbody>
-      {% for lead in leads %}
+    {% for request in requests %}
         <tr>
-          <td style="padding:10px 12px;">{{ lead.id }}</td>
-          <td style="padding:10px 12px; font-weight:600">{{ lead.fullName }}</td>
-          <td style="padding:10px 12px;">{{ lead.email }}</td>
-          <td style="padding:10px 12px;">{{ lead.phone ?: '—' }}</td>
-          <td style="padding:10px 12px;">{{ lead.roofAreaM2 ?: '—' }}</td>
-          <td style="padding:10px 12px;">
-            <span class="status">{{ lead.status }}</span>
-          </td>
-          <td style="padding:10px 12px;">{{ lead.createdAt|date('d/m/Y H:i') }}</td>
-          <td style="padding:10px 12px; white-space:nowrap" class="actions">
-            <a class="btn" href="{{ path('admin_lead_show', {id: lead.id}) }}">👁 Voir</a>
-            <form method="post" action="{{ path('admin_lead_delete', {id: lead.id}) }}" style="display:inline" onsubmit="return confirm('Supprimer ce lead ?')">
-              {# Optionnel: token CSRF si tu l’ajoutes côté contrôleur #}
-              {# <input type="hidden" name="_token" value="{{ csrf_token('delete_lead_' ~ lead.id) }}"> #}
-              <button class="btn" type="submit">🗑 Suppr.</button>
-            </form>
-          </td>
+            <td>#{{ request.id }}</td>
+            <td>{{ request.fullName }}</td>
+            <td>{{ request.city }}</td>
+            <td>{{ request.type }}</td>
+            <td>{{ request.status }}</td>
+            <td>{{ request.requestedDate|date('d/m/Y H:i') }}</td>
+            <td>
+                <a class="btn btn-sm btn-info" href="{{ path('app_maintenance_request_show', {id: request.id}) }}">Voir</a>
+                <a class="btn btn-sm btn-warning" href="{{ path('app_maintenance_request_edit', {id: request.id}) }}">Modifier</a>
+            </td>
         </tr>
-      {% else %}
-        <tr>
-          <td colspan="8" style="padding:16px; text-align:center; opacity:.7">Aucun lead à afficher.</td>
-        </tr>
-      {% endfor %}
+    {% else %}
+        <tr><td colspan="7" class="text-center">Aucune demande</td></tr>
+    {% endfor %}
     </tbody>
-  </table>
+</table>
 {% endblock %}
