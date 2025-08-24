@@ -15,7 +15,7 @@ final class LeadController extends AbstractController
     public function index(LeadRepository $repo): Response
     {
         return $this->render('admin/lead/index.html.twig', [
-            'leads' => $repo->findAll(),
+            'leads' => $repo->findBy([], ['createdAt' => 'DESC'], 100),
         ]);
     }
 }

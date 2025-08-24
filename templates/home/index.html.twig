@@ -107,6 +107,10 @@
 
   {# ==== CALENDRIER du mois en cours ==== #}
   <section class="dash">
+    <div class="calendar-animated-bg" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden;">
+      <canvas id="calendarCanvas"></canvas>
+    </div>
+    
     <div class="card xl glass" style="grid-column:span 12;">
       <h3 id="monthYear" style="margin:0 0 10px"></h3>
       <table id="calendarTable" style="width:100%; border-collapse:collapse; text-align:center;">
@@ -155,23 +159,6 @@
 
 <button class="btn btn-primary">Demander cette date</button>
 </form>
-
-
-  {# ==== FORMULAIRE DEMANDE DE DEVIS ==== #}
-  <section class="dash" id="devis">
-    <div class="card xl glass">
-      <h3>Demande de devis</h3>
-      <form method="post" action="{{ path('lead_new') }}" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-        <input class="btn" name="fullName" placeholder="Nom complet" required>
-        <input class="btn" name="email" type="email" placeholder="Email" required>
-        <input class="btn" name="phone" placeholder="Téléphone">
-        <input class="btn" name="roofAreaM2" type="number" step="0.1" placeholder="Surface de toit (m²)">
-        <select class="btn" name="hasShadow">
-          <option value="0">Peu d'ombrage</option>
-          <option value="1">Beaucoup d'ombrage</option>
-        </select>
-        <button class="btn btn-primary" style="grid-column:span 2">Envoyer</button>
-      </form>
     </div>
   </section>
 

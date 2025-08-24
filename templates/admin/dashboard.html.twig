@@ -1,61 +1,69 @@
-{# templates/admin/dashboard.html.twig #}
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Dashboard — Admin{% endblock %}
+{% block title %}Admin · Tableau de bord{% endblock %}
 
-{% block body %}
-    <h1 style="margin:0 0 16px">Bienvenue 👋</h1>
+{% block admin_body %}
+<h1>Tableau de bord</h1>
 
-    <div class="cards" style="display:flex; gap:20px; margin-bottom:30px;">
-        <div class="card" style="flex:1; padding:20px; border-radius:12px; background:#f6f6f6; text-align:center;">
-            <div style="font-size:14px; color:#555;">Leads totaux</div>
-            <div style="font-size:26px; font-weight:800;">
-                {{ leadsCount|default(0) }}
-            </div>
-        </div>
-        <div class="card" style="flex:1; padding:20px; border-radius:12px; background:#f6f6f6; text-align:center;">
-            <div style="font-size:14px; color:#555;">Nouveaux</div>
-            <div style="font-size:26px; font-weight:800;">
-                {{ newCount|default(0) }}
-            </div>
-        </div>
-        <div class="card" style="flex:1; padding:20px; border-radius:12px; background:#f6f6f6; text-align:center;">
-            <div style="font-size:14px; color:#555;">Gagnés</div>
-            <div style="font-size:26px; font-weight:800;">
-                {{ wonCount|default(0) }}
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="h5">Leads</div>
+                <div class="display-6">{{ stats.leads ?? 0 }}</div>
             </div>
         </div>
     </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="h5">Demandes de maintenance</div>
+                <div class="display-6">{{ stats.requests ?? 0 }}</div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <h2>Derniers leads</h2>
-    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
-        <thead>
-            <tr style="background:#eee;">
-                <th style="padding:8px; text-align:left;">Nom</th>
-                <th style="padding:8px; text-align:left;">Email</th>
-                <th style="padding:8px; text-align:left;">Statut</th>
-                <th style="padding:8px; text-align:left;">Créé le</th>
-                <th style="padding:8px; text-align:left;">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for lead in recentLeads %}
-            <tr>
-                <td style="padding:8px;">{{ lead.fullName }}</td>
-                <td style="padding:8px;">{{ lead.email }}</td>
-                <td style="padding:8px;">{{ lead.status }}</td>
-                <td style="padding:8px;">{{ lead.createdAt|date('d/m/Y H:i') }}</td>
-                <td style="padding:8px;">
-                    <a href="{{ path('admin_lead_show', {id: lead.id}) }}">👁 Voir</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5" style="padding:12px; text-align:center; color:#888;">
-                    Aucun lead récent.
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="row g-4">
+    <div class="col-lg-6">
+        <h2 class="h5">Leads récents</h2>
+        <table class="table table-striped table-bordered admin-table">
+            <thead class="table-light">
+            <tr><th>Nom</th><th>Email</th><th>Créé le</th></tr>
+            </thead>
+            <tbody>
+            {% for lead in recentLeads ?? [] %}
+                <tr>
+                    <td>{{ lead.name ?? '—' }}</td>
+                    <td>{{ lead.email ?? '—' }}</td>
+                    <td>{{ lead.createdAt is defined ? (lead.createdAt|date('d/m/Y H:i')) : '—' }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3" class="text-center text-muted">Aucun lead récent</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-6">
+        <h2 class="h5">Demandes récentes</h2>
+        <table class="table table-striped table-bordered admin-table">
+            <thead class="table-light">
+            <tr><th>Client</th><th>Type</th><th>Statut</th><th>Créée le</th></tr>
+            </thead>
+            <tbody>
+            {% for mr in recentRequests ?? [] %}
+                <tr>
+                    <td>{{ mr.fullName ?? '—' }}</td>
+                    <td>{{ mr.type ?? '—' }}</td>
+                    <td>{{ mr.status ?? '—' }}</td>
+                    <td>{{ mr.createdAt is defined ? (mr.createdAt|date('d/m/Y H:i')) : '—' }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="4" class="text-center text-muted">Aucune demande récente</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

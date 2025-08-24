@@ -1,0 +1,33 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Admin · Agenda{% endblock %}
+
+{% block admin_body %}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
+<h1>Agenda des interventions</h1>
+<div id="calendar"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const calendarEl = document.getElementById('calendar');
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    locale: 'fr',
+    firstDay: 1,
+    slotMinTime: '08:00:00',
+    slotMaxTime: '19:00:00',
+    eventSources: [{ url: '{{ path('admin_calendar_events') }}' }],
+    eventClick(info) {
+      const id = info.event.id;
+      if (confirm('Confirmer ce rendez-vous et envoyer l’email ?')) {
+        fetch('{{ path('admin_calendar_accept', {id: 0}) }}'.replace('/0', '/' + id), { method: 'POST' })
+          .then(() => location.reload());
+      }
+    }
+  });
+  calendar.render();
+});
+</script>
+{% endblock %}

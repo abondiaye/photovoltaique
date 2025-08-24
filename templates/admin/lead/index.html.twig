@@ -1,40 +1,31 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Admin · Maintenance{% endblock %}
+{% block title %}Admin · Leads{% endblock %}
 
 {% block admin_body %}
-<h1>🛠 Demandes de maintenance (vue admin)</h1>
+<h1>Leads</h1>
 
-<a href="{{ path('app_maintenance_request_new') }}" class="btn btn-success mb-3">➕ Nouvelle demande</a>
-
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped admin-table">
     <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Client</th>
-            <th>Ville</th>
-            <th>Type</th>
-            <th>Statut</th>
-            <th>Date souhaitée</th>
-            <th>Actions</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Créé le</th>
+    </tr>
     </thead>
     <tbody>
-    {% for request in requests %}
+    {% for lead in leads %}
         <tr>
-            <td>#{{ request.id }}</td>
-            <td>{{ request.fullName }}</td>
-            <td>{{ request.city }}</td>
-            <td>{{ request.type }}</td>
-            <td>{{ request.status }}</td>
-            <td>{{ request.requestedDate|date('d/m/Y H:i') }}</td>
-            <td>
-                <a class="btn btn-sm btn-info" href="{{ path('app_maintenance_request_show', {id: request.id}) }}">Voir</a>
-                <a class="btn btn-sm btn-warning" href="{{ path('app_maintenance_request_edit', {id: request.id}) }}">Modifier</a>
-            </td>
+            <td>#{{ lead.id }}</td>
+            <td>{{ lead.name ?? '—' }}</td>
+            <td>{{ lead.email ?? '—' }}</td>
+            <td>{{ lead.phone ?? '—' }}</td>
+            <td>{{ lead.createdAt is defined ? (lead.createdAt|date('d/m/Y H:i')) : '—' }}</td>
         </tr>
     {% else %}
-        <tr><td colspan="7" class="text-center">Aucune demande</td></tr>
+        <tr><td colspan="5" class="text-center">Aucun lead</td></tr>
     {% endfor %}
     </tbody>
 </table>

@@ -15,7 +15,7 @@ final class MaintenanceAdminController extends AbstractController
     public function index(MaintenanceRequestRepository $repo): Response
     {
         return $this->render('admin/maintenance/index.html.twig', [
-            'requests' => $repo->findAll(),
+            'requests' => $repo->findBy([], ['createdAt' => 'DESC']),
         ]);
     }
 }

@@ -1,0 +1,21 @@
+/* Pas de reset global agressif — on garde ça minimal & sûr */
+body {
+    margin: 0;
+    background: #222;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Le canvas est fixé en plein écran derrière le contenu */
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    border: 1px solid #181818;
+    box-shadow: 0 0 10px #111;
+    background: rgba(20, 20, 20, 1);
+    z-index: -1;          /* derrière tout */
+    pointer-events: none; /* ne bloque pas les clics */
+  }
+  

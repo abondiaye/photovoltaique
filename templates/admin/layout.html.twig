@@ -1,13 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<style>
+@media (max-width: 768px) {
+  .admin-nav { display: grid; gap: .5rem; grid-template-columns: 1fr 1fr; }
+  .admin-table { font-size: .9rem; }
+  .admin-table th, .admin-table td { white-space: nowrap; }
+}
+@media (max-width: 480px) {
+  .admin-nav { grid-template-columns: 1fr; }
+}
+</style>
+
 <div class="container mt-4">
-    <nav class="mb-4">
-        <a class="btn btn-outline-secondary me-2" href="{{ path('admin_dashboard') }}">🏠 Dashboard</a>
-        <a class="btn btn-outline-primary me-2" href="{{ path('admin_maintenance_index') }}">🛠 Maintenance</a>
-        <a class="btn btn-outline-info me-2" href="{{ path('app_maintenance_request_index') }}">📋 Demandes (CRUD)</a>
-        <a class="btn btn-outline-dark" href="{{ path('admin_lead_index') }}">👤 Leads</a>
+    <nav class="mb-4 admin-nav">
+        <a class="btn btn-outline-secondary" href="{{ path('admin_dashboard') }}">🏠 Tableau de bord</a>
+        <a class="btn btn-outline-primary" href="{{ path('admin_maintenance_index') }}">🛠 Maintenance</a>
+        <a class="btn btn-outline-dark" href="{{ path('app_maintenance_request_index') }}">📋 Demandes (CRUD)</a>
+        <a class="btn btn-outline-info" href="{{ path('admin_lead_index') }}">👤 Leads</a>
     </nav>
+    <a class="btn btn-outline-success" href="{{ path('admin_availability_index') }}">📆 Créneaux</a>
+
+
     {% block admin_body %}{% endblock %}
 </div>
 {% endblock %}
