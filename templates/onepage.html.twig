@@ -1,0 +1,258 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PanneauPhotovoltaique — Accueil{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <style>
+    :root {
+      --overlay: rgba(0,0,0,.45);   /* voile sombre pour lisibilité */
+      --maxw: 1200px;
+      --radius: 16px;
+      --glass: rgba(20,20,20,.55);
+      --border: rgba(255,255,255,.12);
+      --gap: 16px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: #fff;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      /* image en fond (depuis /public) avec voile sombre */
+      background:
+        var(--overlay)
+        url('{{ asset("Panneaux solaires sous la pluie.png") }}')
+        center / cover
+        no-repeat fixed;
+      background-blend-mode: multiply;
+    }
+
+    .main { min-height: 100vh; display: flex; flex-direction: column; }
+    .container { width: min(100% - 32px, var(--maxw)); margin-inline: auto; }
+    .section { padding: 24px 0; }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    .hero {
+      padding: 56px 0 24px;
+    }
+    .hero h1 { margin: 0 0 10px; font-size: clamp(24px, 4.5vw, 40px); line-height: 1.15; }
+    .hero p  { margin: 0 0 18px; font-size: clamp(14px, 2.2vw, 18px); opacity: .9; }
+    .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 42px; padding: 0 16px;
+      border-radius: 10px; border: 1px solid var(--border);
+      color: #fff; background: rgba(255,255,255,.08);
+      text-decoration: none; cursor: pointer;
+      transition: .2s ease background, .2s ease transform;
+    }
+    .btn:hover { background: rgba(255,255,255,.16); transform: translateY(-1px); }
+    .btn-primary { background: #5f9cff; border-color: rgba(255,255,255,.2); }
+    .btn-primary:hover { background: #4b86e6; }
+
+    .grid { display: grid; gap: var(--gap); grid-template-columns: 1fr; }
+    @media (min-width: 680px) { .grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px){ .grid { grid-template-columns: 2fr 1fr; } }
+
+    /* Carte calendrier */
+    .card { padding: 18px; }
+    .card h3 { margin: 0 0 10px; }
+    table { width: 100%; border-collapse: collapse; text-align: center; }
+    #calendarTable th, #calendarTable td {
+      color: #fff; padding: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    #calendarTable td { cursor: pointer; transition: background .2s ease, transform .05s ease; }
+    #calendarTable td:hover { background: rgba(142,38,226,.35); }
+    #calendarTable td.is-today {
+      background: rgba(244,177,253,.9) !important; color: #222 !important; font-weight: 800;
+    }
+
+    /* Form grille responsive */
+    .form-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+    @media (min-width: 680px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+    .form-grid .full { grid-column: 1 / -1; }
+
+    input[type="text"], input[type="email"], input[type="number"], select, textarea {
+      width: 100%; height: 42px; padding: 10px 12px; border-radius: 10px;
+      border: 1px solid var(--border); background: rgba(255,255,255,.08); color: #fff;
+      outline: none;
+    }
+    textarea { height: auto; min-height: 90px; resize: vertical; }
+
+    /* Footer */
+    .footer { padding: 24px 0 40px; opacity: .8; font-size: 14px; }
+
+    /* Media queries : petits ajustements */
+    @media (max-width: 480px) {
+      .btn { width: 100%; }
+      .card { padding: 14px; }
+    }
+    @media (min-width: 1200px) {
+      .hero { padding-top: 72px; }
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<main class="main">
+  <header class="section hero">
+    <div class="container">
+      <div class="glass card">
+        <h1>Panneaux solaires, même sous la pluie ☀️🌧️</h1>
+        <p>Devis transparent, prise de rendez-vous rapide, suivis depuis un espace unique.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
+          <a class="btn" href="#calendrier">Choisir une date</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="calendrier" class="section">
+    <div class="container">
+      <div class="grid">
+        <div class="glass card">
+          <h3 id="monthYear"></h3>
+          <table id="calendarTable">
+            <thead>
+              <tr>
+                <th>Lu</th><th>Ma</th><th>Me</th><th>Je</th><th>Ve</th><th>Sa</th><th>Di</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+          <form id="maintenanceForm"
+                method="post"
+                action="{{ path('app_maintenance_request_new') }}"
+                enctype="multipart/form-data"
+                style="display:none; margin-top:12px;">
+            <input type="hidden" name="requestedDate" id="mf_requestedDate">
+
+            <div class="form-grid">
+              <input type="text"   name="fullName"     placeholder="Nom complet" required>
+              <input type="email"  name="email"        placeholder="Email" required>
+              <input type="text"   name="phone"        placeholder="Téléphone">
+              <input type="text"   name="addressLine1" placeholder="Adresse (numéro + rue)" required>
+              <input type="text"   name="addressLine2" placeholder="Complément d’adresse (optionnel)">
+              <input type="text"   name="city"         placeholder="Ville" required>
+              <input type="text"   name="postalCode"   placeholder="Code postal" required>
+
+              <select name="surfaceType" required class="full">
+                <option value="" disabled selected>Type de surface solaire*</option>
+                <option value="toiture_bi_pente">Toiture inclinée bi-pente</option>
+                <option value="toiture_mono_pente">Toiture inclinée mono-pente</option>
+                <option value="terrasse_modules_cadres">Toiture terrasse (modules cadrés)</option>
+                <option value="terrasse_membranes_souples">Toiture terrasse (membranes souples)</option>
+                <option value="au_sol">Au sol</option>
+                <option value="autre">Autre</option>
+              </select>
+
+              <select name="type">
+                <option value="cleaning">Nettoyage</option>
+                <option value="inspection">Inspection</option>
+                <option value="repair">Dépannage</option>
+              </select>
+
+              <textarea name="comment" placeholder="Commentaire (orientation, hauteur, accès, particularités…)" class="full"></textarea>
+
+              <div class="full" style="display:grid; gap:8px;">
+                <label style="opacity:.9">Ajouter des photos (max 5 — JPG/PNG/WebP, 10 Mo chacune)</label>
+                <input type="file" name="photos[]" accept="image/jpeg,image/png,image/webp" multiple>
+              </div>
+
+              <button class="btn btn-primary full">Demander cette date</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="glass card" id="devis">
+          <h3>Demande de devis</h3>
+          <form method="post" action="{{ path('app_lead_new') }}" class="form-grid">
+            <input type="text"   name="fullName" placeholder="Nom complet" required>
+            <input type="email"  name="email"    placeholder="Email" required>
+            <input type="text"   name="phone"    placeholder="Téléphone">
+            <input type="number" name="roofAreaM2" step="0.1" placeholder="Surface de toit (m²)">
+            <select name="hasShadow">
+              <option value="0">Peu d’ombre</option>
+              <option value="1">Beaucoup d’ombre</option>
+            </select>
+            <button class="btn btn-primary full">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section footer">
+    <div class="container">
+      © {{ "now"|date("Y") }} PanneauPhotovoltaique — Tous droits réservés.
+    </div>
+  </footer>
+</main>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    (function () {
+      const today = new Date();
+      const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+      const monthYearEl = document.getElementById('monthYear');
+      const tableBody = document.querySelector('#calendarTable tbody');
+      const form = document.getElementById('maintenanceForm');
+      const inputDate = document.getElementById('mf_requestedDate');
+
+      function drawMonth(date) {
+        const y = date.getFullYear();
+        const m = date.getMonth();
+        monthYearEl.textContent = monthNames[m] + " " + y;
+
+        const firstOfMonth = new Date(y, m, 1);
+        const jsFirst = firstOfMonth.getDay();           // 0..6 (0 = dimanche)
+        const firstDayIndex = (jsFirst + 6) % 7;         // Lundi=0
+        const lastDate = new Date(y, m + 1, 0).getDate();
+
+        tableBody.innerHTML = '';
+        let d = 1;
+        for (let i = 0; i < 6; i++) {
+          const tr = document.createElement('tr');
+          for (let j = 0; j < 7; j++) {
+            const td = document.createElement('td');
+            if (i === 0 && j < firstDayIndex) td.textContent = '';
+            else if (d > lastDate) td.textContent = '';
+            else {
+              td.textContent = d;
+              if (d === today.getDate() && m === today.getMonth() && y === today.getFullYear()) {
+                td.classList.add('is-today');
+              }
+              td.addEventListener('click', () => {
+                const iso = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}T12:00`;
+                inputDate.value = iso;
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              });
+              d++;
+            }
+            tr.appendChild(td);
+          }
+          tableBody.appendChild(tr);
+          if (d > lastDate) break;
+        }
+      }
+
+      drawMonth(today);
+    })();
+  </script>
+{% endblock %}
