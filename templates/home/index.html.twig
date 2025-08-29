@@ -5,98 +5,99 @@
 {% block stylesheets %}
   {{ parent() }}
   <style>
-    /* Mois + année */
-    #monthYear {
-      color: #fff;
-      font-weight: 800;
-      letter-spacing: .5px;
+    body {
+      background: rgba(0,0,0,.45)
+        url('{{ asset("Panneaux solaires sous la pluie.png") }}')
+        center/cover no-repeat fixed;
+      background-blend-mode: multiply;
     }
-    /* En-têtes & jours */
-    #calendarTable th,
-    #calendarTable td {
-      color: #fff;
-    }
-    #calendarTable th {
-      opacity: .9;
-      font-weight: 600;
-    }
-    #calendarTable td {
-      padding: 10px;
-      border: 1px solid rgba(255,255,255,.08);
-      cursor: pointer;
-      transition: background .2s ease, transform .05s ease;
-    }
-    #calendarTable td:hover { background: rgba(142,38,226,.35); }
+/* ====== Layout & overlay ====== */
+.dash { position: relative; }
+.calendar-animated-bg {
+  position: absolute; inset: 0; overflow: hidden; z-index: 0;
+}
+.calendar-animated-bg, #calendarCanvas { pointer-events: none; }
+.calendar-card { position: relative; z-index: 1; background: transparent; }
 
-    /* Jour courant (si ton JS lui met un style inline, on renforce ici) */
-    #calendarTable td.is-today {
-      background: rgba(244,177,253,.9) !important;
-      color: #222 !important;
-      font-weight: 800;
-    }
+/* ====== Canvas ====== */
+#calendarCanvas { display:block; width:100%; height:100%; }
+/* Assure que l’entête, le tableau et le formulaire passent AU-DESSUS du canvas */
+.calendar-header,
+#calendarTable,
+#maintenanceForm {
+  position: relative;
+  z-index: 1;
+}
 
-    /* Optionnel: état “sélectionné” quand l’utilisateur clique */
-    #calendarTable td.selected {
-      outline: 2px solid #fff;
-      outline-offset: -2px;
-      transform: scale(0.98);
-    }
+/* L’overlay canvas reste en dessous */
+.calendar-animated-bg { z-index: 0; }
+
+/* ====== Calendar UI ====== */
+#monthYear {
+  color:#fff; font-weight:800; letter-spacing:.5px; margin:0;
+}
+.calendar-header {
+  display:flex; align-items:center; gap:10px; margin:0 0 12px;
+}
+.calendar-nav {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border:1px solid rgba(255,255,255,.25);
+  border-radius:10px; background:rgba(255,255,255,.06);
+  color:#fff; cursor:pointer; user-select:none;
+}
+.calendar-nav:hover { background:rgba(255,255,255,.12); }
+
+/* table */
+#calendarTable {
+  width:100%; border-collapse:collapse; table-layout:fixed; text-align:center;
+}
+#able th, #calendarTable td { color:#fff; }
+#calendarTable th {
+  padding:10px; font-weight:600; opacity:.95;
+  border-bottom:2px solid rgba(255,255,255,.28);
+}
+#calendarTable td {
+  padding:12px 8px;
+  border:1px solid rgba(255,255,255,.22);  /* grille plus visible */
+  cursor:pointer; transition:background .2s ease, transform .05s ease;
+  vertical-align:middle;
+}
+/* hover seulement pour les jours actifs */
+#calendarTable td:not(.is-past):hover { background:rgba(142,38,226,.35); }
+
+/* aujourd’hui */
+#calendarTable td.is-today {
+  background:rgba(244,177,253,.9) !important;
+  color:#222 !important; font-weight:800;
+}
+
+/* sélection */
+#calendarTable td.selected {
+  outline:2px solid #fff; outline-offset:-2px; transform:scale(0.98);
+}
+
+/* dates passées (grisé + non cliquable) */
+#calendarTable td.is-past {
+  color:rgba(255,255,255,.45);
+  background:transparent !important;
+  cursor:not-allowed;
+}
+
+/* petit plus: coins doux sur la carte */
+.card.xl.glass.calendar-card { border-radius: 20px; overflow: hidden; }
   </style>
 {% endblock %}
 
-
 {% block body %}
-  {# ==== HERO ==== #}
+
+  {# ==== HERO (inchangé, optionnel) ==== #}
   <section class="hero">
     <div>
       <h1 class="h-title">Net, rapide et puissant — Panneau soigné pour votre énergie ☀️</h1>
       <p class="h-sub">Estimations instantanées, devis transparents et un tableau de bord élégant pour suivre votre production solaire.</p>
-
       <div class="cta" style="display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
-        <a class="btn" href="#realisations">Voir les réalisations</a>
-
-        <a href="#devis" style="text-decoration:none">
-          <button class="button" aria-label="Aller au formulaire de devis">
-            <div class="bg"></div>
-            <div class="wrap">
-              <div class="content">
-                <span class="char state-1">
-                  <span data-label="D" style="--i:1">D</span>
-                  <span data-label="E" style="--i:2">E</span>
-                  <span data-label="V" style="--i:3">V</span>
-                  <span data-label="I" style="--i:4">I</span>
-                  <span data-label="S" style="--i:5">S</span>
-                  <span data-label=" " style="--i:6"> </span>
-                  <span data-label="R" style="--i:8">R</span>
-                  <span data-label="A" style="--i:9">A</span>
-                  <span data-label="P" style="--i:10">P</span>
-                  <span data-label="I" style="--i:11">I</span>
-                  <span data-label="D" style="--i:12">D</span>
-                  <span data-label="E" style="--i:13">E</span>
-                </span>
-        
-                <div class="icon"><div></div></div>
-        
-                <span class="char state-2">
-                  <span data-label="" style="--i:1">C</span>
-                  <span data-label="" style="--i:2">O</span>
-                  <span data-label="" style="--i:3">M</span>
-                  <span data-label="" style="--i:4">M</span>
-                  <span data-label="" style="--i:5">E</span>
-                  <span data-label="" style="--i:6">N</span>
-                  <span data-label="" style="--i:7">C</span>
-                  <span data-label="" style="--i:8">E</span>
-                  <span data-label="" style="--i:9">R</span>
-                </span>
-              </div>
-            </div>
-          </button>
-        </a>
       </div>
     </div>
-        
-
     <div class="glass" style="height:360px; border-radius:28px; display:flex; align-items:center; justify-content:center;">
       <div style="text-align:center;">
         <div style="font-size:92px; line-height:1">🔋</div>
@@ -104,130 +105,339 @@
       </div>
     </div>
   </section>
+  <div class="cta" style="display:flex; gap:10px; flex-wrap:wrap">
+    <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
+    <a class="btn" href="#realisations">Voir les réalisations</a>
+  
+    <!-- Bouton DEVIS RAPIDE (version animée que tu avais) -->
+    <a href="#devis" style="text-decoration:none">
+      <button class="button" aria-label="Aller au formulaire de devis">
+        <div class="bg"></div>
+        <div class="wrap">
+          <div class="content">
+            <span class="char state-1">
+              <span data-label="D" style="--i:1">D</span>
+              <span data-label="E" style="--i:2">E</span>
+              <span data-label="V" style="--i:3">V</span>
+              <span data-label="I" style="--i:4">I</span>
+              <span data-label="S" style="--i:5">S</span>
+              <span data-label=" " style="--i:6"> </span>
+              <span data-label="R" style="--i:8">R</span>
+              <span data-label="A" style="--i:9">A</span>
+              <span data-label="P" style="--i:10">P</span>
+              <span data-label="I" style="--i:11">I</span>
+              <span data-label="D" style="--i:12">D</span>
+              <span data-label="E" style="--i:13">E</span>
+            </span>
+  
+            <div class="icon"><div></div></div>
+  
+            <span class="char state-2">
+              <span data-label="" style="--i:1">C</span>
+              <span data-label="" style="--i:2">O</span>
+              <span data-label="" style="--i:3">M</span>
+              <span data-label="" style="--i:4">M</span>
+              <span data-label="" style="--i:5">E</span>
+              <span data-label="" style="--i:6">N</span>
+              <span data-label="" style="--i:7">C</span>
+              <span data-label="" style="--i:8">E</span>
+              <span data-label="" style="--i:9">R</span>
+            </span>
+          </div>
+        </div>
+      </button>
+    </a>
+  </div>
+  
 
-  {# ==== CALENDRIER du mois en cours ==== #}
+  {# ==== CALENDRIER ==== #}
   <section class="dash">
-    <div class="calendar-animated-bg" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden;">
-      <canvas id="calendarCanvas"></canvas>
-    </div>
-    
-    <div class="card xl glass" style="grid-column:span 12;">
-      <h3 id="monthYear" style="margin:0 0 10px"></h3>
-      <table id="calendarTable" style="width:100%; border-collapse:collapse; text-align:center;">
+    <div class="card xl glass calendar-card" style="grid-column:span 12;">
+      <!-- Canvas d'arrière-plan -->
+      <div class="calendar-animated-bg">
+        <canvas id="calendarCanvas" aria-hidden="true"></canvas>
+      </div>
+
+      <!-- Entête avec navigation -->
+      <div class="calendar-header">
+        <button id="calPrev" type="button" class="calendar-nav" aria-label="Mois précédent">◀</button>
+        <h3 id="monthYear" style="flex:1; text-align:center"></h3>
+        <button id="calNext" type="button" class="calendar-nav" aria-label="Mois suivant">▶</button>
+      </div>
+
+      <!-- Tableau -->
+      <table id="calendarTable">
         <thead>
           <tr>
-            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Lu</th>
-            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Ma</th>
-            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Me</th>
-            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Je</th>
-            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Ve</th>
-            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Sa</th>
-            <th style="padding:10px; border-bottom:1px solid rgba(255,255,255,.15)">Di</th>
+            <th>Lu</th><th>Ma</th><th>Me</th><th>Je</th><th>Ve</th><th>Sa</th><th>Di</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
 
- {# Formulaire affiché après clic sur une date #}
- <form id="maintenanceForm"
- method="post"
- action="{{ path('maintenance_new') }}"
- enctype="multipart/form-data"
- style="display:none; margin-top:12px;">
-
-<input type="hidden" name="date" id="mf_date">
-
-<input class="btn" name="fullName" placeholder="Nom complet" required>
-<input class="btn" name="email" type="email" placeholder="Email" required>
-<input class="btn" name="phone" placeholder="Téléphone">
-
-<input class="btn" name="addressLine1" placeholder="Adresse (numéro + rue)" required>
-<input class="btn" name="addressLine2" placeholder="Complément d’adresse (optionnel)">
-<input class="btn" name="city" placeholder="Ville" required>
-<input class="btn" name="postalCode" placeholder="Code postal" required>
-
-<select class="btn" name="type">
-<option value="cleaning">Nettoyage</option>
-<option value="inspection">Inspection</option>
-<option value="repair">Dépannage</option>
-</select>
-
-<textarea class="btn" name="comment" placeholder="Commentaire (orientation, hauteur, accès, particularités…)" rows="3"></textarea>
-
-<label style="opacity:.9">Ajouter des photos (max 5 — JPG/PNG/WebP, 10 Mo chacune)</label>
-<input class="btn" type="file" name="photos[]" accept="image/jpeg,image/png,image/webp" multiple>
-
-<button class="btn btn-primary">Demander cette date</button>
-</form>
+      {# Formulaire après clic #}
+      <form id="maintenanceForm"
+            method="post"
+            action="{{ path('maintenance_new') }}"
+            enctype="multipart/form-data"
+            style="display:none; margin-top:12px;">
+        <input type="hidden" name="date" id="mf_date">
+        <input class="btn" name="fullName" placeholder="Nom complet" required>
+        <input class="btn" name="email" type="email" placeholder="Email" required>
+        <input class="btn" name="phone" placeholder="Téléphone">
+        <input class="btn" name="addressLine1" placeholder="Adresse (numéro + rue)" required>
+        <input class="btn" name="addressLine2" placeholder="Complément d’adresse (optionnel)">
+        <input class="btn" name="city" placeholder="Ville" required>
+        <input class="btn" name="postalCode" placeholder="Code postal" required>
+        <select class="btn" name="type">
+          <option value="cleaning">Nettoyage</option>
+          <option value="inspection">Inspection</option>
+          <option value="repair">Dépannage</option>
+        </select>
+        <textarea class="btn" name="comment" placeholder="Commentaire (orientation, hauteur, accès, particularités…)" rows="3"></textarea>
+        <label style="opacity:.9">Ajouter des photos (max 5 — JPG/PNG/WebP, 10 Mo chacune)</label>
+        <input class="btn" type="file" name="photos[]" accept="image/jpeg,image/png,image/webp" multiple>
+        <button class="btn btn-primary">Demander cette date</button>
+      </form>
     </div>
   </section>
 
-  {# ==== JS calendrier ==== #}
+  {# ==== JS ==== #}
   <script>
-    (function () {
-      const today = new Date();
-      const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
-      const monthYearEl = document.getElementById('monthYear');
-      const tableBody = document.querySelector('#calendarTable tbody');
+/* === 1) Calendrier navigable + dates passées grisées === */
+(function(){
+  const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+  const monthYearEl = document.getElementById('monthYear');
+  const tableBody   = document.querySelector('#calendarTable tbody');
+  const btnPrev     = document.getElementById('calPrev');
+  const btnNext     = document.getElementById('calNext');
+  const form        = document.getElementById('maintenanceForm');
+  const inputDate   = document.getElementById('mf_date');
 
-      // dessine le calendrier du mois courant
-      monthYearEl.textContent = monthNames[today.getMonth()] + " " + today.getFullYear();
+  if (!monthYearEl || !tableBody) return;
 
-      const firstOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-      const jsFirst = firstOfMonth.getDay();         // 0..6 (0 = dimanche)
-      const firstDayIndex = (jsFirst + 6) % 7;       // Lundi = 0
-      const lastDate = new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+  const today = new Date();
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate()); // 00:00 local
+  let viewYear  = today.getFullYear();
+  let viewMonth = today.getMonth(); // 0..11
 
-      tableBody.innerHTML = '';
-      let d = 1;
-      for (let i = 0; i < 6; i++) {
-        const tr = document.createElement('tr');
-        for (let j = 0; j < 7; j++) {
-          const td = document.createElement('td');
-          td.style.padding='10px';
-          td.style.border='1px solid rgba(255,255,255,.08)';
-          td.style.cursor='pointer';
-          td.onmouseover=()=> td.style.background='rgba(142,38,226,.35)';
-          td.onmouseout =()=> td.style.background='transparent';
+  function renderCalendar(year, month){
+    monthYearEl.textContent = `${monthNames[month]} ${year}`;
+    tableBody.innerHTML = '';
 
-          if (i === 0 && j < firstDayIndex) td.textContent = '';
-          else if (d > lastDate) td.textContent = '';
-          else {
-            td.textContent = d;
-            if (d === today.getDate()) {
-              td.style.background='rgba(244,177,253,.9)';
-              td.style.color='#222';
-              td.style.fontWeight='800';
-            }
-            d++;
+    const firstOfMonth = new Date(year, month, 1);
+    const jsFirst = firstOfMonth.getDay();        // 0..6 (0=dim)
+    const firstDayIndex = (jsFirst + 6) % 7;      // Lundi=0
+    const lastDate = new Date(year, month+1, 0).getDate();
+
+    let d = 1;
+    for (let i = 0; i < 6; i++) {
+      const tr = document.createElement('tr');
+      for (let j = 0; j < 7; j++) {
+        const td = document.createElement('td');
+
+        if (i === 0 && j < firstDayIndex) {
+          td.textContent = '';
+        } else if (d > lastDate) {
+          td.textContent = '';
+        } else {
+          td.textContent = d;
+
+          const cellDate = new Date(year, month, d);
+          const isPast = cellDate < startOfToday;
+
+          if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+            td.classList.add('is-today');
           }
-          tr.appendChild(td);
+
+          if (isPast) {
+            td.classList.add('is-past');
+          } else {
+            // on ne met la date cliquable que si ce n’est pas passé
+            td.dataset.date = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+          }
+          d++;
         }
-        tableBody.appendChild(tr);
-        if (d > lastDate) break;
+        tr.appendChild(td);
       }
+      tableBody.appendChild(tr);
+      if (d > lastDate) break;
+    }
+  }
 
-      // clic : afficher le formulaire + préremplir la date
-      const form = document.getElementById('maintenanceForm');
-      const inputDate = document.getElementById('mf_date');
+  btnPrev?.addEventListener('click', () => {
+    viewMonth--;
+    if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+    renderCalendar(viewYear, viewMonth);
+  });
+  btnNext?.addEventListener('click', () => {
+    viewMonth++;
+    if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+    renderCalendar(viewYear, viewMonth);
+  });
 
-      tableBody.addEventListener('click', (e) => {
-        const td = e.target.closest('td');
-        if (!td) return;
-        const text = td.textContent.trim();
-        if (!text) return; // case vide
-        const day = parseInt(text, 10);
-        const month = today.getMonth() + 1; // 1..12
-        const year = today.getFullYear();
+  if (form && inputDate) {
+    tableBody.addEventListener('click', (e) => {
+      const td = e.target.closest('td');
+      if (!td || !td.dataset.date) return; // ignore cellules vides / passées
 
-        const iso = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}T12:00:00`;
-        inputDate.value = iso;
+      tableBody.querySelectorAll('td.selected').forEach(el => el.classList.remove('selected'));
+      td.classList.add('selected');
 
-        form.style.display = 'grid';
-        form.style.gridTemplateColumns = '1fr 1fr';
-        form.style.gap = '12px';
-        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    })();
+      inputDate.value = `${td.dataset.date}T12:00:00`;
+      form.style.display = 'grid';
+      form.style.gridTemplateColumns = '1fr 1fr';
+      form.style.gap = '12px';
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  renderCalendar(viewYear, viewMonth);
+})();
+
+/* === 2) Animation “soleil + montagnes” (plus lente + reduced-motion) === */
+(function () {
+  const bg       = document.querySelector('.calendar-animated-bg'); // pointer-events:none
+  const canvas   = document.getElementById('calendarCanvas');
+  const listenEl = document.querySelector('.calendar-card');        // on écoute la souris ici
+  if (!bg || !canvas || !listenEl) return;
+
+  const c = canvas.getContext('2d');
+  let w = 0, h = 0;
+
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SUN_SPEED = 0.01; // <= plus lent qu’avant (0.03)
+
+  function resizeCanvasToWrapper() {
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const { width, height } = bg.getBoundingClientRect();
+    w = Math.max(1, Math.floor(width));
+    h = Math.max(1, Math.floor(height));
+    canvas.width  = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width  = w + 'px';
+    canvas.style.height = h + 'px';
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  const twoPI = Math.PI * 2;
+  let mX = w/2, mY = h/2;
+  let trackmouse = false;
+  const per = { x: w/2, y: h/2, step: 1 };
+
+  listenEl.addEventListener('mousemove', (e) => {
+    trackmouse = true;
+    const rect = listenEl.getBoundingClientRect();
+    mX = e.clientX - rect.left;
+    mY = e.clientY - rect.top;
+    per.x = mX; per.y = mY;
+    if (prefersReduced) drawFrame();
+  });
+  listenEl.addEventListener('mouseleave', () => { trackmouse = false; });
+
+  const clamp = (n,min,max)=> Math.max(min, Math.min(max, n));
+  function newGradient(gradient){
+    let grad = gradient.type === "radial"
+      ? c.createRadialGradient(gradient.x1, gradient.y1, gradient.r1, gradient.x1, gradient.y1, gradient.r2)
+      : c.createLinearGradient(gradient.x1, gradient.y1, gradient.x2, gradient.y2);
+    for (let i = 0; i < gradient.stops.length; i++) grad.addColorStop(gradient.stops[i].s, gradient.stops[i].c);
+    return grad;
+  }
+
+  function Mountains(peaks){
+    const RAY_LENGTH_FACTOR = 0.35;  // 0.35 = ~35% de la diagonale (raccourcit fortement)
+    const RAY_OPACITY       = 0.015; // opacité des faisceaux (plus faible qu’avant)    
+
+    const points = [];
+    const init = () => {
+      const step = w / peaks;
+      let y = 0;
+      points.length = 0;
+      points.push({x: 0, y});
+      for (let i = 1; i <= peaks; i++){
+        y = y + (Math.random()*20) - 10;
+        points.push({x: i * step, y});
+      }
+    };
+    const draw = () => {
+      c.save();
+      const g = newGradient({ type: "linear", x1: 0, y1: 0, x2: 0, y2: h,
+        stops: [{s:1, c:"rgba(0,0,0,1)"},{s:0, c:"rgba(80,80,80,1)"}] });
+      c.fillStyle = g;
+      c.beginPath();
+      c.moveTo(points[0].x, h/2 - points[0].y);
+      for (let p = 1; p < points.length; p++) c.lineTo(points[p].x, h/2 - points[p].y);
+      c.lineTo(w, h); c.lineTo(0, h); c.closePath(); c.fill();
+      c.restore();
+
+      const RAY_LENGTH_FACTOR = 0.35;  // 0.35 = ~35% de la diagonale (raccourcit fortement)
+      const RAY_OPACITY       = 0.015; // opacité des faisceaux (plus faible qu’avant)
+      
+    };
+    const resize = () => init();
+    init();
+    return { draw, resize };
+  }
+
+  const computePeaks = () => Math.max(120, Math.floor(w / 6));
+  let mtn = Mountains(computePeaks());
+
+  function drawFrame(){
+    if (!trackmouse && !prefersReduced) {
+      per.x = mX = w/2 + Math.cos(per.step) * w/2;
+      per.y = mY = h/2 + Math.sin(per.step) * h/2;
+      per.step += SUN_SPEED;
+      if (per.step > twoPI) per.step = 0;
+    }
+    c.save();
+    c.globalCompositeOperation = "source-over";
+    const a = clamp(h - mY, 0, 255);
+    const b = clamp(h - mY - 128, 0, 255);
+    const grad = newGradient({
+      type: "radial", x1: mX, y1: mY, r1: 0, r2: Math.max(w, h),
+      stops: [{ s:0,   c:`rgba(${a},${a},${a},0.5)` },
+              { s:0.05,c:`rgba(${a},${b},128,0.5)` },
+              { s:1,   c:`rgba(0,${b},${a},0.5)` }]
+    });
+    c.fillStyle = grad; c.fillRect(0, 0, w, h); c.restore();
+    mtn.draw();
+  }
+
+  function animate(){
+    drawFrame();
+    if (!prefersReduced) requestAnimationFrame(animate);
+  }
+
+  resizeCanvasToWrapper();
+  let lastW = w;
+
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => {
+      resizeCanvasToWrapper();
+      if (Math.abs(w - lastW) > 2) {
+        lastW = w;
+        mtn = Mountains(computePeaks());
+        drawFrame();
+      }
+    });
+    ro.observe(bg);
+  } else {
+    window.addEventListener('resize', () => {
+      resizeCanvasToWrapper();
+      if (Math.abs(w - lastW) > 2) {
+        lastW = w;
+        mtn = Mountains(computePeaks());
+        drawFrame();
+      }
+    });
+  }
+
+  if (prefersReduced) {
+    drawFrame(); // 1 frame, puis on ne tourne que sur interaction/resize
+  } else {
+    requestAnimationFrame(animate);
+  }
+})();
   </script>
+
 {% endblock %}
