@@ -3,7 +3,7 @@
 import './background';
 
 // Import de ton style principal (optionnel)
-import './styles/calendar.scss';
+import './styles/app.scss';
 import 'flatpickr/dist/flatpickr.css';
 import flatpickr from 'flatpickr';
 import './js/mountainBackground.js';// Point d’entrée unique : on importe le SCSS et les 2 scripts

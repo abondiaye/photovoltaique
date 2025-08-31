@@ -22,6 +22,8 @@
 @use './scss/pages/home' as *;
 @use './scss/pages/panneau' as *;
 @use './scss/pages/app' as *;
+@use '../calendar/calendar';
+
 
 // Themes
 @use './scss/themes/default' as *;

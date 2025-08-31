@@ -1,0 +1,25 @@
+/* ====== CALENDAR STYLE ====== */
+
+.calendar-card {
+  margin: 2rem auto;         /* espace autour */
+  max-width: 900px;          /* largeur limitée */
+  padding: 20px;
+  position: relative;
+  z-index: 1;                /* au-dessus du fond */
+}
+
+/* Section calendrier centrée sur la page */
+section.dash {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;   /* colle en haut */
+  min-height: 100vh;         /* occupe toute la hauteur écran */
+  padding-top: 4rem;         /* espace depuis le haut */
+}
+
+/* Si tu veux que le calendrier reste visible même en scrollant */
+.calendar-card.sticky {
+  position: sticky;
+  top: 20px;   /* reste collé à 20px du haut */
+  z-index: 10;
+}

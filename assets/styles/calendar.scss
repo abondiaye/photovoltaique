@@ -1,0 +1,96 @@
+/* --- reset light --- */
+:root { color-scheme: dark; }
+html, body { min-height: 100%; }
+body {
+  margin: 0;
+  color: #fff;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---- carte calendrier ---- */
+.calendar-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(20,20,20,.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  padding: 18px;
+}
+
+/* canvas de fond intégré dans la carte */
+#calendar-bg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* header calendrier */
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+#calMonthYear {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+/* boutons nav */
+.calendar-nav {
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease, transform .05s ease;
+}
+.calendar-nav:hover { background: rgba(255,255,255,.16); }
+.calendar-nav:active { transform: scale(0.98); }
+
+/* tableau calendrier */
+#calTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+#calTable th,
+#calTable td {
+  color: #fff;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+#calTable td {
+  cursor: pointer;
+  transition: background .2s ease, transform .05s ease;
+}
+#calTable td:hover { background: rgba(142,38,226,.35); }
+#calTable td.is-today {
+  background: rgba(244,177,253,.9);
+  color: #222;
+  font-weight: 800;
+}
+
+/* canvas pluie plein écran */
+#rain-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* responsive */
+@media (max-width: 480px) {
+  .calendar-card { padding: 14px; }
+  .calendar-nav { flex: 0 0 auto; }
+}
