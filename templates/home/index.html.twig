@@ -20,6 +20,9 @@
 .calendar-card { position: relative; z-index: 1; background: transparent; }
 
 /* ====== Canvas ====== */
+canvas {
+  display: block;
+}
 #calendarCanvas { display:block; width:100%; height:100%; }
 /* Assure que l’entête, le tableau et le formulaire passent AU-DESSUS du canvas */
 .calendar-header,
@@ -95,8 +98,12 @@
     <div>
       <h1 class="h-title">Net, rapide et puissant — Panneau soigné pour votre énergie ☀️</h1>
       <p class="h-sub">Estimations instantanées, devis transparents et un tableau de bord élégant pour suivre votre production solaire.</p>
-      <div class="cta" style="display:flex; gap:10px; flex-wrap:wrap">
-      </div>
+      <title>Glowing Bouncing Ring</title>
+      <link rel="stylesheet" href="style.css">
+      </head>
+      
+      
+      <canvas id="ringCanvas"></canvas>      </div>
     </div>
     <div class="glass" style="height:360px; border-radius:28px; display:flex; align-items:center; justify-content:center;">
       <div style="text-align:center;">
@@ -106,8 +113,6 @@
     </div>
   </section>
   <div class="cta" style="display:flex; gap:10px; flex-wrap:wrap">
-    <a class="btn btn-primary" href="#devis">Obtenir un devis</a>
-    <a class="btn" href="#realisations">Voir les réalisations</a>
   
     <!-- Bouton DEVIS RAPIDE (version animée que tu avais) -->
     <a href="#devis" style="text-decoration:none">
@@ -204,6 +209,7 @@
 
   {# ==== JS ==== #}
   <script>
+    
 /* === 1) Calendrier navigable + dates passées grisées === */
 (function(){
   const monthNames = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
