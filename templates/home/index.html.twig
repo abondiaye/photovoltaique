@@ -11,6 +11,27 @@
         center/cover no-repeat fixed;
       background-blend-mode: multiply;
     }
+/* ====== Footer Styles ====== */
+.site-footer {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px;
+  background: rgba(0,0,0,0.4); /* transparent noir */
+  backdrop-filter: blur(6px);
+  color: #fff;
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.site-footer a {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+.site-footer a:hover {
+  color: #ffd700;
+  text-shadow: 0 0 6px #ffd700, 0 0 12px #ff8800, 0 0 18px #ff0080;
+}
 /* ====== Layout & overlay ====== */
 .dash { position: relative; }
 .calendar-animated-bg {
@@ -32,6 +53,31 @@ canvas {
   z-index: 1;
 }
 
+.calendar-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.calendar-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 3px;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #ffdd00, #ff0080, #00eaff, #ffdd00);
+  background-size: 300% 300%;
+  animation: borderFlow 6s linear infinite;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 /* L’overlay canvas reste en dessous */
 .calendar-animated-bg { z-index: 0; }
 
@@ -88,6 +134,27 @@ canvas {
 
 /* petit plus: coins doux sur la carte */
 .card.xl.glass.calendar-card { border-radius: 20px; overflow: hidden; }
+
+
+/* ====== Formulaire ====== */
+.merci {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ffdd00, #ff0080, #00eaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: merciAnim 2s ease-in-out infinite, fadeIn 1s forwards;
+  text-shadow: 0 0 10px rgba(255,255,255,0.7);
+  
+  
+}
+
+@keyframes merciAnim {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1) rotate(2deg); }
+  100% { transform: scale(1); }
+}
   </style>
 {% endblock %}
 
@@ -96,12 +163,11 @@ canvas {
   {# ==== HERO (inchangé, optionnel) ==== #}
   <section class="hero">
     <div>
-      <h1 class="h-title">Net, rapide et puissant — Panneau soigné pour votre énergie ☀️</h1>
+      <h1 class="h-title">Net, rapide et puissant — Panneau soigné pour votre énergie </h1>
       <p class="h-sub">Estimations instantanées, devis transparents et un tableau de bord élégant pour suivre votre production solaire.</p>
       <title>Glowing Bouncing Ring</title>
       <link rel="stylesheet" href="style.css">
       </head>
-      
       
       <canvas id="ringCanvas"></canvas>      </div>
     </div>
@@ -114,39 +180,40 @@ canvas {
   </section>
   <div class="cta" style="display:flex; gap:10px; flex-wrap:wrap">
   
-    <!-- Bouton DEVIS RAPIDE (version animée que tu avais) -->
-    <a href="#devis" style="text-decoration:none">
-      <button class="button" aria-label="Aller au formulaire de devis">
+    <!-- Bouton Avis Clients (version animée) -->
+    <a href="{{ path('avis') }}" style="text-decoration:none; margin-left:20px;">
+      <button class="button" aria-label="Aller aux avis clients">
         <div class="bg"></div>
         <div class="wrap">
           <div class="content">
             <span class="char state-1">
-              <span data-label="D" style="--i:1">D</span>
-              <span data-label="E" style="--i:2">E</span>
-              <span data-label="V" style="--i:3">V</span>
-              <span data-label="I" style="--i:4">I</span>
-              <span data-label="S" style="--i:5">S</span>
-              <span data-label=" " style="--i:6"> </span>
-              <span data-label="R" style="--i:8">R</span>
-              <span data-label="A" style="--i:9">A</span>
-              <span data-label="P" style="--i:10">P</span>
-              <span data-label="I" style="--i:11">I</span>
-              <span data-label="D" style="--i:12">D</span>
-              <span data-label="E" style="--i:13">E</span>
+              <span data-label="A" style="--i:1">A</span>
+              <span data-label="V" style="--i:2">V</span>
+              <span data-label="I" style="--i:3">I</span>
+              <span data-label="S" style="--i:4">S</span>
+              <span data-label=" " style="--i:5"> </span>
+              <span data-label="C" style="--i:6"></span>
+              <span data-label="L" style="--i:7"></span>
+              <span data-label="I" style="--i:8"></span>
+              <span data-label="E" style="--i:9"></span>
+              <span data-label="N" style="--i:10"></span>
+              <span data-label="T" style="--i:11"></span>
+              <span data-label="" style="--i:12"></span>
             </span>
-  
             <div class="icon"><div></div></div>
-  
             <span class="char state-2">
-              <span data-label="" style="--i:1">C</span>
-              <span data-label="" style="--i:2">O</span>
-              <span data-label="" style="--i:3">M</span>
-              <span data-label="" style="--i:4">M</span>
-              <span data-label="" style="--i:5">E</span>
-              <span data-label="" style="--i:6">N</span>
-              <span data-label="" style="--i:7">C</span>
-              <span data-label="" style="--i:8">E</span>
-              <span data-label="" style="--i:9">R</span>
+              <span data-label="" style="--i:1">A</span>
+              <span data-label="" style="--i:2">V</span>
+              <span data-label="" style="--i:3">I</span>
+              <span data-label="" style="--i:4">S</span>
+              <span data-label="" style="--i:5"> </span>
+              <span data-label="" style="--i:6">C</span>
+              <span data-label="" style="--i:7">L</span>
+              <span data-label="" style="--i:8">I</span>
+              <span data-label="" style="--i:9">E</span>
+              <span data-label="" style="--i:10">N</span>
+              <span data-label="" style="--i:11">T</span>
+              <span data-label="" style="--i:12">S</span>
             </span>
           </div>
         </div>
@@ -154,10 +221,32 @@ canvas {
     </a>
   </div>
   
+  <a href="{{ path('avis') }}#form-avis" style="text-decoration:none">
+    <button class="button avis-btn" aria-label="Donner mon avis">
+      <div class="bg"></div>
+      <div class="wrap">
+        <div class="content">
+          <span class="char state-1">
+            <span data-label="D" style="--i:1">D</span>
+            <span data-label="O" style="--i:2">O</span>
+            <span data-label="N" style="--i:3">N</span>
+            <span data-label="N" style="--i:4">N</span>
+            <span data-label="E" style="--i:5">E</span>
+            <span data-label="R" style="--i:6">R</span>
+            <span data-label=" " style="--i:7"></span>
+            <span data-label="A" style="--i:8">A</span>
+            <span data-label="V" style="--i:9">V</span>
+            <span data-label="I" style="--i:10">I</span>
+            <span data-label="S" style="--i:11">S</span>
+          </span>
+        </div>
+      </div>
+    </button>
+  </a>
 
   {# ==== CALENDRIER ==== #}
-  <section class="dash">
-    <div class="card xl glass calendar-card" style="grid-column:span 12;">
+<section class="dash" style="display:flex; justify-content:center;">
+    <div class="card xl glass calendar-card" style="grid-column:span 12; max-width:900px; margin:0 auto;">
       <!-- Canvas d'arrière-plan -->
       <div class="calendar-animated-bg">
         <canvas id="calendarCanvas" aria-hidden="true"></canvas>
@@ -187,6 +276,9 @@ canvas {
             enctype="multipart/form-data"
             style="display:none; margin-top:12px;">
         <input type="hidden" name="date" id="mf_date">
+        <label for="mf_time" style="opacity:.9">Heure souhaitée</label>
+        <input class="btn" type="time" id="mf_time" name="time" required>
+        <small style="display:block; color:#888; margin-bottom:8px;">Choisissez l'heure de votre rendez-vous après avoir cliqué une date</small>
         <input class="btn" name="fullName" placeholder="Nom complet" required>
         <input class="btn" name="email" type="email" placeholder="Email" required>
         <input class="btn" name="phone" placeholder="Téléphone">
@@ -205,7 +297,42 @@ canvas {
         <button class="btn btn-primary">Demander cette date</button>
       </form>
     </div>
+  
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div id="robot-chat" class="robot-chat">
+        {% include 'components/chatbox.html.twig' %}
+      </div>
+    </div>
+    
+    <script>
+
+    
+    // Helper function for typing animation
+    function typeMessage(el, text, speed=30) {
+      let i = 0;
+      function typing() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i);
+          i++;
+          setTimeout(typing, speed);
+        }
+      }
+      typing();
+    }
+    </script>
+    
+    <div id="thankYouMessage" style="display:none; text-align:center; margin-top:20px;">
+      <h2 class="merci">✨ Merci pour votre demande ✨</h2>
+      <p style="color:#fff; opacity:.85;">Nous vous contacterons rapidement pour confirmer le rendez-vous.</p>
+    </div>
   </section>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© {{ "now"|date("Y") }} Photovoltaique — Tous droits réservés</p>
+      <p><a href="#" style="color:#ffd700; text-decoration:none;">Mentions légales</a> | <a href="#" style="color:#ffd700; text-decoration:none;">Contact</a></p>
+    </div>
+  </footer>
 
   {# ==== JS ==== #}
   <script>
@@ -296,6 +423,17 @@ canvas {
       form.style.gap = '12px';
       form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+
+    // Ajout de la gestion de l'envoi du formulaire
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      form.style.display = 'none';
+      const thankYou = document.getElementById('thankYouMessage');
+      if (thankYou) {
+        thankYou.style.display = 'block';
+        thankYou.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
   }
 
   renderCalendar(viewYear, viewMonth);
@@ -371,8 +509,11 @@ canvas {
         stops: [{s:1, c:"rgba(0,0,0,1)"},{s:0, c:"rgba(80,80,80,1)"}] });
       c.fillStyle = g;
       c.beginPath();
-      c.moveTo(points[0].x, h/2 - points[0].y);
-      for (let p = 1; p < points.length; p++) c.lineTo(points[p].x, h/2 - points[p].y);
+      const mountainBase = h * 0.75; // place mountains at 75% of height
+      c.moveTo(points[0].x, mountainBase - points[0].y);
+      for (let p = 1; p < points.length; p++) {
+        c.lineTo(points[p].x, mountainBase - points[p].y);
+      }
       c.lineTo(w, h); c.lineTo(0, h); c.closePath(); c.fill();
       c.restore();
 
@@ -416,6 +557,7 @@ canvas {
 
   resizeCanvasToWrapper();
   let lastW = w;
+  drawFrame();
 
   if ('ResizeObserver' in window) {
     const ro = new ResizeObserver(() => {
@@ -444,6 +586,7 @@ canvas {
     requestAnimationFrame(animate);
   }
 })();
+
   </script>
 
 {% endblock %}

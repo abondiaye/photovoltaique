@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Admin — Rapports{% endblock %}
+{% block body %}
+  <h2>Rapports d’intervention</h2>
+  <table class="table glass" style="width:100%;border-collapse:collapse">
+    <thead><tr>
+      <th>#</th><th>Demande</th><th>Créé le</th><th>Publié</th><th>Actions</th>
+    </tr></thead>
+    <tbody>
+    {% for r in reports %}
+      <tr>
+        <td>{{ r.id }}</td>
+        <td>{{ r.request.fullName }} — {{ r.request.city }}</td>
+        <td>{{ r.createdAt|date('d/m/Y H:i') }}</td>
+        <td>{{ r.publishOnSite ? 'Oui' : 'Non' }}</td>
+        <td>
+          <a class="btn" href="{{ path('admin_reports_edit', {id: r.id}) }}">Éditer</a>
+          <form method="post" action="{{ path('admin_reports_delete', {id: r.id}) }}" style="display:inline" onsubmit="return confirm('Supprimer ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('del_report_' ~ r.id) }}">
+            <button class="btn">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">Aucun rapport pour l’instant.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

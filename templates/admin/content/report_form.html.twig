@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Admin — Rapport{% endblock %}
+{% block body %}
+  <h2>Rapport pour la demande #{{ requestEntity.id }} — {{ requestEntity.fullName }} ({{ requestEntity.city }})</h2>
+
+  <div class="glass" style="max-width:900px;padding:18px;">
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        {{ form_row(form.panelsCleaned) }}
+        {{ form_row(form.structureChecked) }}
+        {{ form_row(form.wiringSecured) }}
+        {{ form_row(form.inverterChecked) }}
+        {{ form_row(form.debrisRemoved) }}
+      </div>
+      {{ form_row(form.note) }}
+      {{ form_row(form.publishOnSite) }}
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        {{ form_row(form.beforeFiles) }}
+        {{ form_row(form.afterFiles) }}
+      </div>
+
+      <button class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+  </div>
+
+  {% if report.id %}
+    <h3 style="margin-top:16px">Photos existantes</h3>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+      {% for p in report.beforePhotos %}
+        <figure class="glass" style="padding:6px"><img src="{{ asset(p) }}" style="max-width:100%"><figcaption>AVANT</figcaption></figure>
+      {% endfor %}
+      {% for p in report.afterPhotos %}
+        <figure class="glass" style="padding:6px"><img src="{{ asset(p) }}" style="max-width:100%"><figcaption>APRÈS</figcaption></figure>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

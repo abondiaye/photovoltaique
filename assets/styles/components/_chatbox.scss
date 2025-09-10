@@ -1,0 +1,57 @@
+/* ===== Chatbox Styles ===== */
+.robot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    transition: 0.3s;
+  }
+  
+  .robot-btn:hover {
+    background: rgba(101, 216, 161, 0.8);
+    transform: scale(1.1);
+  }
+  
+  .robot-btn.active {
+    transform: scale(1.3) rotate(10deg);
+    text-shadow: 0 0 10px #ffdd00, 0 0 20px #ff0080, 0 0 30px #00eaff;
+  }
+  
+  .robot-chat {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    width: 260px;
+    background: #222;
+    color: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 9998;
+  }
+  
+  #robot-messages {
+    max-height: 150px;
+    overflow-y: auto;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+  
+  #robot-input {
+    width: 100%;
+    padding: 6px;
+    border: none;
+    border-radius: 6px;
+  }

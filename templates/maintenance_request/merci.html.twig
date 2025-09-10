@@ -1,0 +1,68 @@
+// public/js/merci.js
+
+document.addEventListener('DOMContentLoaded', () => {
+  const checkmark = document.querySelector('.checkmark');
+  if (checkmark) {
+    // Animate checkmark with scale pop effect
+    checkmark.style.transform = 'scale(0)';
+    checkmark.style.transition = 'transform 0.5s ease-out';
+    requestAnimationFrame(() => {
+      checkmark.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        checkmark.style.transform = 'scale(1)';
+      }, 500);
+    });
+  }
+
+  // Confetti effect
+  const confettiEmojis = ['🎉', '✨'];
+  const confettiCount = 30;
+  const confettiContainer = document.createElement('div');
+  confettiContainer.style.position = 'fixed';
+  confettiContainer.style.top = '0';
+  confettiContainer.style.left = '0';
+  confettiContainer.style.width = '100%';
+  confettiContainer.style.height = '0';
+  confettiContainer.style.pointerEvents = 'none';
+  confettiContainer.style.overflow = 'visible';
+  confettiContainer.style.zIndex = '9999';
+  document.body.appendChild(confettiContainer);
+
+  function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+    confetti.style.position = 'fixed';
+    confetti.style.top = '-2em';
+    confetti.style.fontSize = `${Math.random() * 20 + 15}px`;
+    confetti.style.left = `${Math.random() * window.innerWidth}px`;
+    confetti.style.opacity = '1';
+    confetti.style.willChange = 'transform, opacity';
+    confettiContainer.appendChild(confetti);
+
+    const duration = Math.random() * 3000 + 3000; // 3-6 seconds
+    const endX = (Math.random() - 0.5) * 100; // horizontal drift
+    const endY = window.innerHeight + 50;
+
+    let startTime = null;
+
+    function animate(time) {
+      if (!startTime) startTime = time;
+      const elapsed = time - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      confetti.style.transform = `translate(${endX * progress}px, ${endY * progress}px) rotate(${progress * 360}deg)`;
+      confetti.style.opacity = `${1 - progress}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        confetti.remove();
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+
+  for (let i = 0; i < confettiCount; i++) {
+    setTimeout(createConfetti, i * 150);
+  }
+});

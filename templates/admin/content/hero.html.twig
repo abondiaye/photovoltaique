@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Admin — Widget accueil{% endblock %}
+{% block body %}
+  <h2>Widget d’accueil (bloc 🔋)</h2>
+  <div class="glass" style="max-width:800px;padding:18px;margin:14px 0;">
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+      {{ form_row(form.tagline) }}
+      {{ form_row(form.title) }}
+      {{ form_row(form.subtitle) }}
+      {{ form_row(form.imageFile) }}
+      <button class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+    {% if widget.imagePath %}
+      <p style="margin-top:10px">Image actuelle :</p>
+      <img src="{{ asset(widget.imagePath) }}" alt="" style="max-width:100%;border-radius:10px;border:1px solid rgba(255,255,255,.15)">
+    {% endif %}
+  </div>
+{% endblock %}

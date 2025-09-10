@@ -1,0 +1,50 @@
+
+
+<section class="avis-section">
+  <h2>Vos avis</h2>
+  <p class="avis-intro">Découvrez les retours de nos clients satisfaits, et laissez le vôtre !</p>
+
+  <!-- Liste d'avis dynamiques -->
+  <div class="avis-cards">
+    <div class="avis-card-container fade-in">
+      <div class="avis-card">
+        <h3><i class="fa fa-star"></i> Client satisfait</h3>
+        <p>Le site est moderne, simple d’utilisation et permet de demander un devis en quelques clics. Très pratique !</p>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+      </div>
+    </div>
+    {% if avis is defined and avis|length > 0 %}
+      {% for item in avis %}
+        <div class="avis-card-container fade-in">
+          <div class="avis-card">
+            <h3><i class="fa fa-star"></i> {{ item.nom }}</h3>
+            <p>{{ item.message }}</p>
+            <div class="rating">
+              {% for i in 1..item.note %}
+                ⭐
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align:center; color:#666;">Aucun avis pour l’instant. Soyez le premier à donner le vôtre !</p>
+    {% endif %}
+  </div>
+
+  <!-- Formulaire pour donner un avis -->
+  <h2 id="form-avis">Donner mon avis</h2>
+  <form class="avis-form" method="post" action="{{ path('avis_new') }}">
+    <input type="text" name="nom" placeholder="Votre nom" required />
+    <select name="note" required>
+      <option value="">Votre note</option>
+      <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+      <option value="4">⭐⭐⭐⭐ - Très bien</option>
+      <option value="3">⭐⭐⭐ - Correct</option>
+      <option value="2">⭐⭐ - Moyen</option>
+      <option value="1">⭐ - Mauvais</option>
+    </select>
+    <textarea name="message" placeholder="Votre avis..." rows="4" required></textarea>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+  </form>
+</section>

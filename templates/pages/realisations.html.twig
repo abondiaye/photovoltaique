@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réalisations — Photovoltaique{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <style>
+    .zoom-img {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .zoom-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+  </style>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    new Swiper('.swiper', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      autoplay: {
+        delay: 4000,
+      },
+      effect: 'coverflow',
+      coverflowEffect: {
+        rotate: 30,
+        stretch: 0,
+        depth: 200,
+        modifier: 1,
+        slideShadows: true,
+      },
+      centeredSlides: true,
+      slidesPerView: 'auto',
+    });
+  </script>
+{% endblock %}
+
+{% block body %}
+<div style="text-align:center; margin:30px 0;">
+    <a href="{{ path('app_home') }}" 
+       style="display:inline-block; padding:10px 20px; border-radius:8px;
+              background:linear-gradient(90deg,#ff0080,#00eaff);
+              color:white; text-decoration:none; font-weight:600;
+              box-shadow:0 4px 12px rgba(0,0,0,.3); transition:transform .2s;">
+      ⬅ Retour à l’accueil
+    </a>
+  </div>
+<section class="hero glass" style="padding:60px; border-radius:20px; margin:40px auto; max-width:1000px;">
+  <h1 class="h-title" style="text-align:center;">🌞 Nos réalisations</h1>
+  <p class="h-sub" style="text-align:center; opacity:.85; margin-bottom:40px;">
+    Découvrez quelques-unes de nos installations photovoltaïques.
+  </p>
+
+  <!-- Slider container -->
+  <div class="swiper" style="width:100%; max-width:900px; margin:auto;">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide glass" style="padding:12px; border-radius:16px; text-align:center;">
+        <img class="zoom-img" src="{{ asset('images/realisations/maison1.jpg') }}" alt="Installation maison 1" style="width:100%; border-radius:12px;">
+        <p style="margin-top:8px; color:#eee;">Maison individuelle – 6 kWc</p>
+      </div>
+      <div class="swiper-slide glass" style="padding:12px; border-radius:16px; text-align:center;">
+        <img class="zoom-img" src="{{ asset('images/realisations/maison2.jpg') }}" alt="Installation maison 2" style="width:100%; border-radius:12px;">
+        <p style="margin-top:8px; color:#eee;">Toiture bi-pente – 9 kWc</p>
+      </div>
+      <div class="swiper-slide glass" style="padding:12px; border-radius:16px; text-align:center;">
+        <img class="zoom-img" src="{{ asset('images/realisations/entreprise1.jpg') }}" alt="Installation entreprise" style="width:100%; border-radius:12px;">
+        <p style="margin-top:8px; color:#eee;">Bâtiment industriel – 30 kWc</p>
+      </div>
+    </div>
+    <!-- Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Navigation -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</section>
+{% include 'components/chatbox.html.twig' %}
+{% endblock %}

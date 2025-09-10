@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fonctionnalités — Photovoltaique{% endblock %}
+
+{% block body %}
+<div style="text-align:center; margin:30px 0;">
+  <a href="{{ path('app_home') }}" 
+     style="display:inline-block; padding:10px 20px; border-radius:8px;
+            background:linear-gradient(90deg,#ff0080,#00eaff);
+            color:white; text-decoration:none; font-weight:600;
+            box-shadow:0 4px 12px rgba(0,0,0,.3); transition:transform .2s;">
+    ⬅ Retour à l’accueil
+  </a>
+</div>
+<section class="hero glass" style="padding:60px; border-radius:20px; text-align:center; margin:40px auto; max-width:900px;">
+  <h1 class="h-title">⚙️ Nos fonctionnalités</h1>
+  <p class="h-sub" style="opacity:.85;">Découvrez les atouts de notre solution photovoltaïque, moderne, rapide et élégante.</p>
+
+  <div style="display:grid; gap:18px; margin-top:30px; text-align:left;">
+    <div class="glass" style="padding:16px; border-radius:12px;">🌞 <strong>Suivi en temps réel</strong> de la production et de la consommation.</div>
+    <div class="glass" style="padding:16px; border-radius:12px;">📊 <strong>Rapports &amp; graphiques</strong> clairs, exportables en PDF.</div>
+    <div class="glass" style="padding:16px; border-radius:12px;">🔔 <strong>Alertes intelligentes</strong> (entretien, anomalies, météo).</div>
+    <div class="glass" style="padding:16px; border-radius:12px;">☁️ <strong>Accès web &amp; mobile</strong> sécurisé, partout, tout le temps.</div>
+  </div>
+</section>
+{% include 'components/chatbox.html.twig' %}
+{% endblock %}

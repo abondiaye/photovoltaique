@@ -1,0 +1,216 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis Clients{% endblock %}
+
+{% block body %}
+<section id="Avis">
+  <h2 id="avisblanc">Avis Clients ⭐</h2>
+
+  <div class="carousel-inner">
+    {% for item in avis %}
+      <div class="carousel-item">
+        <div class="slide-content">
+         
+          <p>"{{ item.message }}"</p>
+
+          <h5>
+            {{ item.nom }}
+            {% if item.createdAt is defined %}
+              <span class="avis-date">— {{ item.createdAt|date('d/m/Y H:i') }}</span>
+            {% endif %}
+            <br>
+            <span class="stars">
+              {% set note = item.note|default(0) %}
+              {% for i in 1..5 %}
+                {% if i <= note %}
+                  <span class="star full">★</span>
+                {% else %}
+                  <span class="star">☆</span>
+                {% endif %}
+              {% endfor %}
+            </span>
+          </h5>
+        </div>
+      </div>
+    {% else %}
+      <div class="carousel-item">
+        <div class="slide-content">
+          <p>Aucun avis pour l’instant. Soyez le premier à laisser le vôtre !</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {# ✅ Boutons navigation centrés #}
+  <div class="carousel-controls">
+    <button id="prevAvis" aria-label="Avis précédent">◀</button>
+    <button id="nextAvis" aria-label="Avis suivant">▶</button>
+  </div>
+
+  {# ✅ Formulaire d’ajout d’avis #}
+  <form action="{{ path('avis_new') }}" method="post" class="avis-form">
+    <input type="text" name="nom" placeholder="Votre nom" required>
+    <select name="note" required>
+      <option value="">-- Note --</option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="1">⭐</option>
+    </select>
+    <textarea name="message" placeholder="Votre avis" rows="3" required></textarea>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+  </form>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const items = document.querySelectorAll(".carousel-item");
+    const btnPrev = document.getElementById("prevAvis");
+    const btnNext = document.getElementById("nextAvis");
+    let index = 0;
+    let timer;
+
+    function showItem(i) {
+      items.forEach((el, idx) => {
+        el.style.display = idx === i ? "block" : "none";
+      });
+    }
+
+    function startAutoScroll() {
+      timer = setInterval(() => {
+        index = (index + 1) % items.length;
+        showItem(index);
+      }, 5000);
+    }
+
+    function resetAutoScroll() {
+      clearInterval(timer);
+      startAutoScroll();
+    }
+
+    if (items.length > 0) {
+      showItem(index);
+      startAutoScroll();
+
+      btnPrev?.addEventListener("click", () => {
+        index = (index - 1 + items.length) % items.length;
+        showItem(index);
+        resetAutoScroll();
+      });
+
+      btnNext?.addEventListener("click", () => {
+        index = (index + 1) % items.length;
+        showItem(index);
+        resetAutoScroll();
+      });
+    }
+  });
+</script>
+
+<style>
+/* ⭐ Style des étoiles */
+.stars { font-size: 1.2rem; letter-spacing: 2px; }
+.star.full { color: #FFD700; text-shadow: 0 0 6px rgba(255, 215, 0, 0.7); }
+.star { color: #ccc; }
+
+/* 📝 Formulaire */
+.avis-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.avis-form input,
+.avis-form select,
+.avis-form textarea {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #00eaff;
+  background: rgba(23, 35, 76, 0.6);
+  color: #fff;
+}
+.avis-form input::placeholder,
+.avis-form textarea::placeholder { color: #cceeff; }
+.avis-form button {
+  background: #00eaff;
+  color: #17234C;
+  font-weight: bold;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.avis-form button:hover { background: #00cce0; }
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .slide-content { width: 90%; padding: 20px; }
+  #avisblanc { font-size: 1.8rem; }
+}
+
+#avisblanc {
+  text-align: center; /* ✅ centre le titre */
+}
+
+.avis-date {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin-left: 8px;
+  color: #cceeff;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  max-width: 800px;    /* largeur max du bloc avis */
+  margin: 0 auto;      /* centre le bloc au milieu de la page */
+  text-align: center;
+}
+
+.carousel-item {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-item.active {
+  display: flex;
+}
+
+/* ✅ Boutons navigation centrés */
+.carousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 16px auto 0;
+  width: 100%;
+  max-width: 800px;
+}
+
+.carousel-controls button {
+  appearance: none;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.carousel-controls button:hover {
+  background: rgba(255,255,255,.12);
+}
+
+.slide-content {
+  margin: 0 auto;
+  text-align: center;
+  max-width: 600px;
+}
+</style>
+{% endblock %}

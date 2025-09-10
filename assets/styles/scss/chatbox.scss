@@ -1,0 +1,70 @@
+// ==== Chatbox + Hacking Animation ====
+
+.hacking-animation {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 10px;
+    color: #00ff6a;
+    font-family: monospace;
+    font-size: 14px;
+    white-space: pre-wrap;
+    overflow: auto;
+    max-height: 200px;
+    margin-top: 10px;
+  }
+  
+  .hacking-animation__character {
+    animation: type 500ms linear;
+    color: #00ff6a;
+  }
+  
+  .cursor {
+    display: inline-block;
+    margin-left: 2px;
+    width: 8px;
+    color: #00ff6a;
+    animation: blink 1s step-start infinite;
+  }
+  
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  
+  @keyframes type {
+    0% { background: #fff; color: #fff; }
+    5% { background: transparent; color: #fff; }
+    100% { background: transparent; color: #00ff6a; }
+  }
+  
+  // ==== Chatbox container ====
+  .robot-chat {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    max-width: 300px;
+    font-size: 0.9rem;
+  }
+  
+  .robot-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #00ff6a;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0,255,106,0.6);
+    transition: 0.3s;
+  }
+  
+  .robot-btn:hover {
+    transform: scale(1.1);
+  }

@@ -10,8 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  {# si tu utilises Symfony UX/Encore :
+  {# si utilises Symfony UX/Encore :
   {{ encore_entry_link_tags('app') }}
+  {{ encore_entry_script_tags('app') }}
   #}
   
 
@@ -249,16 +250,16 @@
 </head>
 
 <body>
-  <nav class="nav">
+  <nav class="solar-navbar">
     <div class="logo"><span class="logo-badge"></span> SYRIUSPhotovoltaique</div>
-    <div>
-      <a href="#features">Fonctionnalités</a>
-      <a href="#devis">Devis</a>
-      <a href="#realisations">Réalisations</a>
-      <a href="#contact">Contact</a>
+    <ul>
+      <a href="{{ path('features') }}">Fonctionnalités</a>
+      <a href="{{ path('devis') }}">Devis</a>
+      <a href="{{ path('realisations') }}">Réalisations</a>
+      <a href="{{ path('contact') }}">Contact</a>
       {# Un seul bouton Admin, version néon violet #}
       <a href="{{ path('admin_maintenance_index') }}" class="btn-neon" id="btnAdmin">⚡ Admin</a>
-    </div>
+    </ul>
   </nav>
   
  

@@ -19,6 +19,7 @@
 
 // 5. Components (boutons, cartes, formulaires, etc.)
 @use './scss/components/button';
+@use './scss/components/chatbox' as *;
 // @use './scss/components/card'; // ajoute plus tard si besoin
 
 // 6. Pages (styles spécifiques à certaines pages)

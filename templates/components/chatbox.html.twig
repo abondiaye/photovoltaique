@@ -1,0 +1,97 @@
+<!--**************************************
+  ADD THE SECTIONS IN HEAD TAG
+                       BEGINING
+*****************************************-->
+<!--FONT AWESOME-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+<!--ICONIFY-->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<!--PLUGIN-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<!--GOOGLE FONTS-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+.hacking-animation__character,
+.cursor {
+  color: #00f7ff; /* bleu fluo */
+  text-shadow: 0 0 5px #00f7ff, 0 0 10px #00eaff, 0 0 20px;
+}
+.cursor {
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+</style>
+<!--**************************************
+                        ENDS
+*****************************************-->
+
+
+<!--**************************************
+  ADD THE SECTION IN BODY TAG
+                       BEGINING
+*****************************************-->
+<!--ADDITIONAL SECTION-->
+<div class="additional">
+<section class="chat_animate">
+  <figure>
+      <img src="https://i.postimg.cc/vZzn2Vwv/bot.png" class="up_down" alt="" />
+  </figure> 
+</section>
+</div>
+<div id="robot-assistant" class="robot-btn"></div>
+
+<!-- Terminal hacking animation -->
+<div class="hacking-animation">
+  <pre class="hacking-animation__text"></pre>
+</div>
+
+<!-- Chatbox -->
+<div id="robot-chat" class="robot-chat">
+  <h4>Assistant</h4>
+  <div id="robot-messages"></div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const textString = `
+{HEY! Je suis là .}
+/CODESYRIUSPROSENGAGE...&*&&*&;...... 
+{ pas encore un Bot, mais bientôt :}`;
+
+  const textElem = document.querySelector(".hacking-animation__text");
+  let count = 0;
+
+  function typeChar() {
+    if (count < textString.length) {
+      if (textString[count] === "\n") {
+        textElem.appendChild(document.createElement("br"));
+      } else {
+        const span = document.createElement("span");
+        span.classList.add("hacking-animation__character");
+        span.textContent = textString[count];
+        textElem.appendChild(span);
+      }
+      count++;
+      setTimeout(typeChar, 40);
+    } else {
+      const cursor = document.createElement("span");
+      cursor.classList.add("cursor");
+      cursor.textContent = "|";
+      textElem.appendChild(cursor);
+    }
+  }
+
+  typeChar();
+});
+</script>
+<!--**************************************
+                        ENDS
+*****************************************-->

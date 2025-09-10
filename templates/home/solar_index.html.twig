@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil — Effet Solaire{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/solar.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="solar-hero">
+  <div class="sun"></div>
+  <h1 class="solar-title">L'énergie solaire qui rayonne</h1>
+</section>
+
+<div class="content">
+  <p>Ici, tu pourras mettre le contenu de ta page d'accueil ou tes sections habituelles.</p>
+</div>
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/solar.js') }}"></script>
+{% endblock %}
+{% endblock %}

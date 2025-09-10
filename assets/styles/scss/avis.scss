@@ -1,0 +1,125 @@
+#Avis {
+    background: linear-gradient(135deg, #17234C 0%, #0f1a3a 100%);
+    color: #F6FAFB;
+    text-align: center;
+    padding: 3rem 1rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 234, 255, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  #avisblanc {
+    color: #F6FAFB;
+    margin-bottom: 2.5rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-shadow: 0 0 8px #00eaff;
+    transition: color 0.3s ease;
+  }
+  
+  #avisblanc:hover {
+    color: #00eaff;
+    text-shadow: 0 0 12px #00eaff;
+  }
+  
+  .carousel-inner {
+    background: linear-gradient(135deg, #17234C 0%, #0f1a3a 100%);
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 234, 255, 0.25);
+    padding: 2rem 0;
+    overflow: hidden;
+  }
+  
+  .slide-content {
+    width: 70%;
+    margin: auto;
+    min-height: 280px;
+    padding: 40px 30px;
+    background: rgba(23, 35, 76, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 234, 255, 0.2);
+    color: #e0f7ff;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideFadeIn 0.8s forwards ease;
+  }
+  
+  .slide-content p {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 25px;
+    letter-spacing: 0.03em;
+    color: #cceeff;
+  }
+  
+  .slide-content h5 {
+    font-size: 1.4rem;
+    color: #00eaff;
+    font-weight: 600;
+    text-shadow: 0 0 6px #00eaff;
+  }
+  
+  #tete {
+    max-width: 80px;
+    border-radius: 50%;
+    border: 2px solid #00eaff;
+    box-shadow: 0 0 10px #00eaff;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  #tete:hover {
+    box-shadow: 0 0 20px #00eaff;
+  }
+  
+  @keyframes slideFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Auto-scrolling carousel effect */
+  .carousel-inner {
+    display: flex;
+    overflow: hidden;
+  }
+
+  .carousel-inner .carousel-item {
+    flex: 0 0 100%;
+    animation: autoScroll 20s linear infinite;
+  }
+
+  .carousel-inner:hover .carousel-item {
+    animation-play-state: paused;
+  }
+
+  @keyframes autoScroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+}
+
+/*
+Example extra review:
+<div class="carousel-item">
+  <div class="slide-content">
+    <h1><img id="tete" src="img/avis7.png"></h1><br>
+    <p>"Super service ! Le site est moderne et clair, j’ai pu réserver facilement mon nettoyage de panneaux."</p>
+    <h5>Jean P.</h5>
+  </div>
+</div>
+
+<div class="carousel-item">
+  <div class="slide-content">
+    <h1><img id="tete" src="img/avis8.png"></h1><br>
+    <p>"Un site très intuitif, j’ai apprécié la facilité pour laisser mon avis et consulter ceux des autres."</p>
+    <h5>Sophie L.</h5>
+  </div>
+</div>
+*/
